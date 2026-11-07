@@ -4,7 +4,7 @@
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
 const APP_VERSION = '1.0.5', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
-const DATA_V = 'd2';
+const DATA_V = 'd3';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
