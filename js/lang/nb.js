@@ -30,7 +30,6 @@
     "Avatar wählen": "Velg avatar",
     "Beenden": "Avslutt",
     "Behauptungen zum Jahr gibt es nur bei Songs, deren Jahr mit MusicBrainz geprüft ist – nicht bei Cover-Versionen, Neuaufnahmen und Jahren genau an einer Jahrzehnt-Grenze.": "Påstander om året gjelder bare sanger der året er sjekket mot MusicBrainz – aldri coverversjoner, nyinnspillinger eller år akkurat på grensen mellom to tiår.",
-    "Code {c} · verwalten in der Jukebox": "Kode {c} · administreres i Jukebox",
     "Daten & Musik": "Data og musikk",
     "Deezer antwortet nicht": "Deezer svarer ikke",
     "Deezer ist gerade nicht erreichbar.": "Får ikke kontakt med Deezer akkurat nå.",
@@ -213,5 +212,6 @@
     "Wird im Lauf der Runde kniffliger: unbekanntere Songs, knappere Behauptungen.": "Blir vanskeligere i løpet av runden: mindre kjente sanger, knappere påstander.",
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Vanskelig fra start: også mindre kjente sanger, nabotiår og artister fra samme tid.",
     "Dein Profil gilt für alle Spiele der Jukebox.": "Profilen din gjelder for alle spillene i Jukebox.",
+    "Abgeglichen · verwalten in der Jukebox": "Synkronisert · administreres i Jukebox",
   }
 };

@@ -30,7 +30,6 @@
     "Avatar wählen": "Choisir un avatar",
     "Beenden": "Quitter",
     "Behauptungen zum Jahr gibt es nur bei Songs, deren Jahr mit MusicBrainz geprüft ist – nicht bei Cover-Versionen, Neuaufnahmen und Jahren genau an einer Jahrzehnt-Grenze.": "Les affirmations sur l’année ne concernent que des morceaux dont l’année a été vérifiée avec MusicBrainz – jamais les reprises, les réenregistrements ni les années pile à la frontière d’une décennie.",
-    "Code {c} · verwalten in der Jukebox": "Code {c} · à gérer dans la Jukebox",
     "Daten & Musik": "Données et musique",
     "Deezer antwortet nicht": "Deezer ne répond pas",
     "Deezer ist gerade nicht erreichbar.": "Deezer est injoignable pour le moment.",
@@ -213,5 +212,6 @@
     "Wird im Lauf der Runde kniffliger: unbekanntere Songs, knappere Behauptungen.": "Devient plus dur au fil de la partie : morceaux moins connus, affirmations plus serrées.",
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Difficile dès le départ : aussi des morceaux moins connus, des décennies voisines et des artistes de la même époque.",
     "Dein Profil gilt für alle Spiele der Jukebox.": "Ton profil vaut pour tous les jeux de la Jukebox.",
+    "Abgeglichen · verwalten in der Jukebox": "Synchronisé · à gérer dans la Jukebox",
   }
 };
