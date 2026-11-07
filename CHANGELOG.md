@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.1 – 07.11.2026
+- Abgleich: gemeinsame Technik aktualisiert (Diamanten aus Gold Record werden mit abgeglichen)
+
 ## 1.0.0 – 07.11.2026
 - Erste Version: Ein Song läuft, dazu eine Behauptung – wisch nach rechts (Hit), wenn sie stimmt, nach links (Miss), wenn nicht
 - Wischen wie bei Tinder: Die Karte kippt mit dem Finger, färbt sich grün (Hit) oder rot (Miss), dazu ein Stempel – darunter wartet schon die nächste Karte. Oder die runden Knöpfe ✗ / ✓ bzw. die Pfeiltasten
