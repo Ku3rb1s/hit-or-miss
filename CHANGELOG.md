@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.2 – 07.11.2026
+- Nach einem Update kommt die neue Version jetzt sofort – vorher konnte der Browser bis zu 10 Minuten lang noch die alte Seite zeigen
+
 ## 1.0.1 – 07.11.2026
 - Abgleich: gemeinsame Technik aktualisiert (Diamanten aus Gold Record werden mit abgeglichen)
 
