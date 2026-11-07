@@ -1,10 +1,10 @@
 /* Hit or Miss – Spielablauf und Anzeige
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
-   Tages-Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.4', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+   Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
+const APP_VERSION = '1.0.5', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
-const DATA_V = 'd1';
+const DATA_V = 'd2';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
@@ -31,7 +31,7 @@ const THEMES = [['graphit', 'Graphit', '#3a4252', '#1f3a32'], ['ozean', 'Ozean',
 const LOC = () => ({ de: 'de-DE', en: 'en-GB', fr: 'fr-FR', es: 'es-ES', nb: 'nb-NO' }[curLang] || 'de-DE');
 const fmtN = n => Math.round(n).toLocaleString(LOC());
 const SITE = 'https://ku3rb1s.github.io/hit-or-miss/';
-const EPOCH = '2026-11-07';   // Tages-Challenge #1
+const EPOCH = '2026-11-07';   // Tägliche Challenge #1
 
 // Gespeichert wird mit „hom.“ vorne – alle Spiele teilen sich den Browser-Speicher von ku3rb1s.github.io
 const LS = {
@@ -45,9 +45,9 @@ const sharedTheme = {
 const opt = { mode: LS.get('mode', '60s'), diff: LS.get('diff', 'normal'), sfx: LS.get('sfx', true), vib: LS.get('vib', true), vol: LS.get('vol', 80), muted: false, theme: sharedTheme.get() };
 if (!MODE_NAMES[opt.mode]) opt.mode = '60s';
 if (!DIFF[opt.diff]) opt.diff = 'normal';
-// Rekord je Modus und Stufe (Tages-Challenge: immer 60 Sekunden · Normal)
+// Rekord je Modus und Stufe (Tägliche Challenge: immer 60 Sekunden · Normal)
 const bestKey = (mode = opt.mode, diff = opt.diff) => `best.${mode}.${diff}`;
-const modeLabel = g => g.daily ? tx('Tages-Challenge #{n}', { n: dayNo(g.day) }) + (g.late ? ' · ' + tx('zählt nicht') : '') : tx(MODE_NAMES[g.mode]) + ' · ' + tx(DIFF_NAMES[g.diff]);
+const modeLabel = g => g.daily ? tx('Tägliche Challenge #{n}', { n: dayNo(g.day) }) + (g.late ? ' · ' + tx('zählt nicht') : '') : tx(MODE_NAMES[g.mode]) + ' · ' + tx(DIFF_NAMES[g.diff]);
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -200,7 +200,7 @@ async function startGame(daily = false) {
     score: 0, streak: 0, bestStreak: 0, right: 0, wrong: 0, log: [], queue: [], cur: null,
     best: LS.get(bestKey(mode, diff), 0), locked: true, over: false, ended: false,
   };
-  // Tages-Challenge: gilt ab dem Start als gespielt (Neuladen bringt keine zweite Chance)
+  // Tägliche Challenge: gilt ab dem Start als gespielt (Neuladen bringt keine zweite Chance)
   if (daily && !late) LS.set('daily.' + day, { score: 0, right: 0, wrong: 0, streak: 0, done: false });
   for (let i = 0; i < 4; i++) { const c = nextCard(); if (c) G.queue.push(c); }
   show('game');
@@ -518,8 +518,8 @@ const ACH = [
   ['p1000', '🏆', 'Tausender', '1.000 Punkte in einer Runde'],
   ['clean', '💯', 'Fehlerfrei', '20 Karten ohne Fehler in einer Runde'],
   ['sd20', '☠️', 'Überlebt', '20 richtig im Sudden Death'],
-  ['daily3', '📅', 'Dranbleiben', '3 Tage in Folge die Tages-Challenge gespielt'],
-  ['daily7', '🗓️', 'Eine ganze Woche', '7 Tage in Folge die Tages-Challenge gespielt'],
+  ['daily3', '📅', 'Dranbleiben', '3 Tage in Folge die Tägliche Challenge gespielt'],
+  ['daily7', '🗓️', 'Eine ganze Woche', '7 Tage in Folge die Tägliche Challenge gespielt'],
   ['decades', '📻', 'Zeitreisender', 'In einer Runde Songs aus 6 Jahrzehnten richtig'],
 ];
 function checkAch(g) {
@@ -595,7 +595,7 @@ function renderHome() {
   $('#bestPill').textContent = best ? '🏆 ' + tx('Rekord: {n}', { n: opt.mode === 'zen' ? best + '/' + ZEN_CARDS : fmtN(best) }) : tx('Noch kein Rekord');
   $('#demoClaim').textContent = tx('erschien in den {d}ern', { d: '70' });
   const d = today(), res = LS.get('daily.' + d), st = dailyStreak();
-  $('#dailyTitle').textContent = tx('Tages-Challenge #{n}', { n: dayNo(d) });
+  $('#dailyTitle').textContent = tx('Tägliche Challenge #{n}', { n: dayNo(d) });
   $('#dailySub').textContent = res ? (res.done ? tx('Heute: {n} Punkte', { n: fmtN(res.score) }) : tx('Heute abgebrochen')) + (st ? ' · 🔥 ' + streakTxt(st) : '') + ' · ' + tx('nochmal spielen (zählt nicht)')
     : tx('Heute für alle dieselben Behauptungen') + (st ? ' · 🔥 ' + streakTxt(st) : '');
   $('#dailyBtn').classList.toggle('done', !!res);
@@ -695,7 +695,7 @@ const goHome = () => { stopAudio(); cancelAnimationFrame(raf); if (G && !G.ended
 async function leave() {
   if (G && !G.ended && !$('#game').classList.contains('hidden')) {
     const dailyRun = G.daily && !G.late;
-    if (!(await ask(dailyRun ? tx('Tages-Challenge beenden? Sie zählt dann mit dem jetzigen Stand.') : tx('Runde abbrechen? Sie wird nicht gewertet.'), tx('Beenden'), true))) return;
+    if (!(await ask(dailyRun ? tx('Tägliche Challenge beenden? Sie zählt dann mit dem jetzigen Stand.') : tx('Runde abbrechen? Sie wird nicht gewertet.'), tx('Beenden'), true))) return;
     if (dailyRun) { G.over = true; return endGame(); }
   }
   goHome();

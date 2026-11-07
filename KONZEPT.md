@@ -180,6 +180,12 @@ Falsche Interpreten – hier lauern die meisten Fallen. Regeln:
    gleiches Deezer-Genre). *Something in the Way (Nirvana) ist von Whitney Houston* ist zu leicht.
 6. **Cover-Bands und Karaoke raus** aus allen Arten: *Hello I’m Adele*, *Bruno Mars Cover Band*, *Creedence Clearwater
    Revival Experience*, *T»MA a.k.a. Falco*, Titel mit „(Karaoke)“.
+7. **Alle Mitwirkenden** (ab 1.0.4): Deezer nennt im Interpreten-Feld oft nur den Hauptinterpreten. Die Liste der Mitwirkenden
+   aus Gold Record (`data/feat.json`, 1.131 Songs) zählt mit – sonst wäre „Under Pressure (Queen) ist von David Bowie“ „falsch“.
+8. **Keine eigene Fassung** (ab 1.0.4, Hinweis aus der Fehler-Durchsicht: „Good Luck, Babe! ist von Disco Lines“ – Disco Lines
+   hat einen bekannten Remix): Wer bei Deezer eine Fassung mit demselben Titel hat (Cover, Remix, auch als Remixer im Titel),
+   kommt bei diesem Song nie als falscher Interpret (`scripts/build-versions.js`). Fassungen, die es bei Deezer nicht gibt,
+   stehen von Hand in `scripts/versions-extra.json`.
 
 #### D) Titel – „Dieser Song heißt »Livin’ on a Prayer«“ (Interpret wird gezeigt, Titel nicht)
 

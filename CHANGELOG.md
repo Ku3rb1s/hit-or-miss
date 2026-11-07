@@ -1,5 +1,10 @@
 # Neuerungen
 
+## 1.0.5 – 07.11.2026
+- Fairere Interpreten-Behauptungen: Wer an einem Song mitwirkt (Duett, Gast – z. B. David Bowie bei „Under Pressure“), kommt nicht mehr als „falscher“ Interpret. Ebenso alle, die eine eigene Fassung des Titels haben (Cover, Remix – z. B. Otis Redding bei „Stand by Me“, Disco Lines bei „Good Luck, Babe!“)
+- Zwei Jahre korrigiert (What’s Up?, You’re Beautiful) – jetzt einig mit Gold Record und Older or Newer
+- Heißt jetzt wie in den anderen Spielen „Tägliche Challenge“
+
 ## 1.0.4 – 07.11.2026
 - Einstellungen: Dein Code steht nicht mehr offen da („✓ Abgeglichen · verwalten in der Jukebox“) – den Code selbst gibt es nur im Fenster „Dein Code“ der Jukebox
 

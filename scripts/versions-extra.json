@@ -1,0 +1,4 @@
+{
+  "_hinweis": "Bekannte andere Fassungen (Remixe, Cover), die die Deezer-Suche nicht findet. Schlüssel: 'Interpret – Titel' wie im Spiel, Wert: Interpreten mit eigener Fassung. Diese kommen bei dem Song nie als falsche Antwort. Danach: node scripts/build-data.js",
+  "Chappell Roan – Good Luck, Babe!": ["Disco Lines"]
+}

@@ -7,7 +7,7 @@
    Arten:
      dec     – erschien in den {d}ern                   d: 1980
      when    – erschien vor/nach {y}                    dir: 'before'|'after', y: 1990
-     artist  – ist von {A}                              A: 'Bon Jovi'
+     artist  – ist von {A}                              A: 'Bon Jovi' (falsch nie: Beteiligte, Interpreten mit eigener Fassung s.v)
      title   – heißt »{T}«                              T: 'Livin’ on a Prayer'
      streams – hat über {n} Streams bei Spotify          n: Millionen (2000 = 2 Mrd.)
      older   – ist älter/neuer als »{o.T}« ({o.A})       cmp: 'older'|'newer', o: anderer Song
@@ -29,13 +29,15 @@ const HM = (() => {
   // Hauptinterpret ohne „feat.“-Teil (das „&“ bleibt: Simon & Garfunkel)
   const mainArtist = a => String(a).replace(/\s*[([]?\s*\b(?:feat\.?|ft\.?|featuring)\s.*$/i, '').trim() || String(a).trim();
   const SPLIT = /\s*(?:,|&|\+|\/|\bfeat\.?|\bft\.?|\bfeaturing\b|\bwith\b|\bx\b|\band\b|\bund\b|\bvs\.?)\s*/i;
-  // Alle Beteiligten eines Songs: Interpreten-Feld (auch in Teilen) und Gäste aus dem Titel („(feat. Ellie Goulding)“)
+  // Alle Beteiligten eines Songs: Interpreten-Feld (auch in Teilen), Gäste aus dem Titel („(feat. Ellie Goulding)“)
+  // und weitere Mitwirkende laut Deezer (s.p, z. B. David Bowie bei „Under Pressure“ von Queen)
   function participants(s) {
     const out = [s.a0 || s.A];
     for (const p of String(s.a0 || s.A).split(SPLIT)) if (p) out.push(p);
     for (const m of String(s.t).matchAll(/[([]\s*(?:feat\.?|ft\.?|featuring|with)\s+([^)\]]+)[)\]]/gi)) {
       out.push(m[1]); for (const p of m[1].split(SPLIT)) if (p) out.push(p);
     }
+    for (const p of s.p || []) out.push(p);
     return out;
   }
   // Ist Interpret X mit einem der Beteiligten verwandt? (gleicher Name, oder einer steckt als ganze Wörter im anderen)
@@ -62,7 +64,7 @@ const HM = (() => {
   function prepare(data, now = new Date()) {
     const artists = data.artists;
     const tracks = data.tracks.map(r => {
-      const s = { i: r.i, t: r.t, A: artists[r.a], ai: r.a, a0: r.a0, y: r.y, y2: r.y2 || 0, q: r.q || 0, c: r.c, f: r.f, n: r.s || 0, g: r.g || '' };
+      const s = { i: r.i, t: r.t, A: artists[r.a], ai: r.a, a0: r.a0, p: r.p, v: (r.v || []).map(i => artists[i]), y: r.y, y2: r.y2 || 0, q: r.q || 0, c: r.c, f: r.f, n: r.s || 0, g: r.g || '' };
       s.T = cleanTitle(s.t); s.tk = titleKey(s.t); s.ak = key(s.A);
       s.ylo = Math.min(s.y, s.y2 || s.y); s.yhi = Math.max(s.y, s.y2 || s.y);
       s.parts = participants(s);
@@ -126,7 +128,7 @@ const HM = (() => {
       if (h > .5 && s.g) { const sg = c.filter(e => e.g.has(s.g)); if (sg.length >= 5) c = sg; }
       for (let n = 0; n < 12 && c.length; n++) {
         const e = pick(c, R);
-        if (others.has(e.ak) || related(e.A, s.parts)) { c = c.filter(x => x !== e); continue; }
+        if (others.has(e.ak) || related(e.A, s.parts) || related(e.A, s.v)) { c = c.filter(x => x !== e); continue; }
         return { k: 'artist', A: e.A, ok: false, hide: 'a' };
       }
       return null;
@@ -173,7 +175,7 @@ const HM = (() => {
     switch (c.k) {
       case 'dec': return ys.every(y => !edge(y) && (decOf(y) === c.d) === c.ok) && yearOk(s);
       case 'when': return ys.every(y => Math.abs(y - c.y) >= 3 && ((c.dir === 'before' ? y < c.y : y > c.y) === c.ok)) && yearOk(s);
-      case 'artist': return c.ok ? key(c.A) === s.ak : key(c.A) !== s.ak && !related(c.A, s.parts) && !D.titleArt.get(s.tk).has(key(c.A));
+      case 'artist': return c.ok ? key(c.A) === s.ak : key(c.A) !== s.ak && !related(c.A, s.parts) && !related(c.A, s.v) && !D.titleArt.get(s.tk).has(key(c.A));
       case 'title': return c.ok ? titleKey(c.T) === s.tk : titleKey(c.T) !== s.tk;
       case 'streams': return c.ok ? s.n >= c.n : s.n <= c.n * .85 && !D.staleStreams;
       case 'older': {

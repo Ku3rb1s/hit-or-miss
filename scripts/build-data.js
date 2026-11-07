@@ -8,7 +8,8 @@
 
    tracks.json:
      artists: Interpreten (Schreibweisen zusammengeführt, ohne „feat.“-Teil)
-     tracks:  { i: Deezer-ID, t: Titel, a: Nr. in artists, a0?: Original-Interpretenfeld (falls anders),
+     tracks:  { i: Deezer-ID, t: Titel, a: Nr. in artists, a0?: Original-Interpretenfeld (falls anders), p?: weitere Mitwirkende,
+                v?: Nr. der Interpreten mit eigener Fassung desselben Titels (nie als falsche Antwort),
                 y: Jahr, y2?: abweichendes Jahr der zweiten Quelle, q: Jahr geprüft (0 nein, 1 eine Quelle, 2 zwei Quellen einig),
                 c: Cover (Deezer-md5 oder mb:…), f: Bekanntheit 0 (größter Hit) … 999, s?: Spotify-Streams in Mio., g?: Deezer-Genre } */
 'use strict';
@@ -80,9 +81,25 @@ for (const [k, g] of groups) {
 const ranked = [...out].sort((a, b) => (b.r || 0) - (a.r || 0));
 ranked.forEach((s, i) => { s._f = Math.floor(i / ranked.length * 1000); });
 
+// Weitere Beteiligte (Duette, Gäste), die im Interpreten-Feld fehlen – aus Gold Record (data/feat.json, Deezer-Mitwirkende):
+// „Under Pressure“ steht nur unter Queen, David Bowie singt mit. Ohne diese Liste wäre „ist von David Bowie“ eine „falsche“ Behauptung.
+const readJson = (p, d) => { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return d; } };
+const feat = readJson(path.join(DOCS, 'Gold-Record', 'data', 'feat.json'), {});
+// Andere Fassungen desselben Titels (Remixe, Cover): Deezer-Suche (scripts/build-versions.js) und Handliste für Fassungen,
+// die es bei Deezer nicht gibt (scripts/versions-extra.json, z. B. der Disco-Lines-Remix von „Good Luck, Babe!“).
+// Gespeichert werden nur Namen, die auch als Interpret im Spiel vorkommen – nur die könnten als „falsche“ Antwort kommen.
+const versions = readJson(path.join(__dirname, '.cache', 'versions.json'), {});
+const extraVersions = readJson(path.join(__dirname, 'versions-extra.json'), {});
+const extraByKey = new Map(Object.entries(extraVersions).filter(([k]) => !k.startsWith('_')).map(([k, v]) => { const [a, t] = k.split(' – '); return [songKey(t, a), v]; }));
+const poolIdx = new Map(artists.map((a, i) => [HM.key(a), i]));   // gespeichert wird die Nummer des Interpreten (spart Platz)
+let withFeat = 0, withVersions = 0;
+
 const tracks = out.map(s => {
   const r = { i: s.id, t: s.t, a: aIndex.get(s._ak), y: s.y, q: s.q, c: s.c, f: s._f };
   if (s.a !== artists[r.a]) r.a0 = s.a;
+  if (feat[s.id]?.length) { r.p = feat[s.id]; withFeat++; }
+  const v = [...new Set([...(versions[s.id] || []), ...(extraByKey.get(songKey(s.t, s.a)) || [])])].map(n => poolIdx.get(HM.key(n))).filter(i => i != null && i !== r.a);
+  if (v.length) { r.v = [...new Set(v)]; withVersions++; }
   if (s.y2) r.y2 = s.y2;
   if (s.c0) r.c0 = s.c0;                      // Deezer-Cover als Ersatz, falls das Original-Cover nicht lädt
   if (s.s) r.s = s.s;
@@ -102,6 +119,8 @@ L.push(`Hit or Miss – Datenpaket ${built} (Streams Stand ${bill.built})`);
 L.push(`Songs: ${tracks.length} (raus: ${dropped.dup} Dubletten, ${dropped.fake} Cover-Bands/Karaoke, ${dropped.de} nur deutsche Playlists)`);
 L.push(`Jahr geprüft: ${tracks.filter(t => t.q).length} · zwei Quellen einig: ${agree} · uneinig: ${disagree} · Streams: ${matched}`);
 L.push(`Interpreten: ${artists.length} · zusammengeführte Schreibweisen: ${merged.length}`);
+L.push(`Weitere Beteiligte (Gold Record feat.json): ${withFeat} Songs · andere Fassungen mit Interpreten aus dem Spiel: ${withVersions} Songs`
+  + (Object.keys(versions).length < tracks.length ? ` (Deezer-Suche erst für ${Object.keys(versions).length} von ${tracks.length} Songs – node scripts/build-versions.js)` : ''));
 L.push(`Datei: ${(size / 1024).toFixed(0)} KB`, '');
 L.push('Uneinige Jahre:', ...out.filter(s => s.y2).map(s => `  ${s.t} – ${s.a}: ${s.y} / ${s.y2}`), '');
 L.push('Zusammengeführt:', ...merged.map(m => '  ' + m), '');
