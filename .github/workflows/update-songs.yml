@@ -1,0 +1,46 @@
+name: Songlisten aktualisieren
+
+# Jede Woche Montag früh – nach den Läufen in Gold Record und Older or Newer (Montag 0:10), deren Daten hier einfließen:
+#   Datenpaket neu bauen, andere Fassungen neuer Songs bei Deezer suchen (build-versions), nochmal bauen.
+# Hochgeladen wird nur, wenn sich tracks.json geändert hat (dann auch DATA_V).
+# Gold Record, Older or Newer und die Jukebox (Skripte) werden nur gelesen – geschrieben wird nur hier.
+# Alles läuft über Spiele-Hub/scripts/update-songs.js (lokal: node scripts/update-songs.js --only hom).
+# Per Hand: Actions → „Songlisten aktualisieren“ → Run workflow.
+on:
+  schedule:
+    - cron: '10 6 * * 1'   # Montag 6:10 UTC = 7:10 (Winter) bzw. 8:10 (Sommer)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-songs
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120   # erster Lauf ohne Zwischenspeicher: Deezer-Suche für alle Songs
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: Hit-or-Miss }
+      - uses: actions/checkout@v4
+        with: { repository: Ku3rb1s/jukebox, path: Spiele-Hub }
+      - uses: actions/checkout@v4
+        with: { repository: Ku3rb1s/gold-record, path: Gold-Record }
+      - uses: actions/checkout@v4
+        with: { repository: Ku3rb1s/older-or-newer, path: Older-or-Newer }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Zwischenspeicher holen
+        uses: actions/cache@v4
+        with:
+          path: Hit-or-Miss/scripts/.cache
+          key: hom-songs-${{ github.run_id }}
+          restore-keys: hom-songs-
+      - name: Datenpaket bauen und hochladen
+        run: |
+          git -C Hit-or-Miss config user.name "github-actions[bot]"
+          git -C Hit-or-Miss config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          node Spiele-Hub/scripts/update-songs.js --only hom --commit
