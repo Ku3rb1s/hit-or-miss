@@ -39,7 +39,6 @@
     "Deezer-Fehler: {m}": "Deezer error: {m}",
     "Dein Code": "Your code",
     "Dein Name": "Your name",
-    "Dein Profil gilt für alle Spiele der Jukebox. Es bleibt auf diesem Gerät.": "Your profile works in every Jukebox game. It stays on this device.",
     "Deine Antwort: {a}": "Your answer: {a}",
     "Deine Punkte": "Your points",
     "Deine Statistik": "Your stats",
@@ -213,5 +212,6 @@
     "Nur große Hits, die falschen Behauptungen liegen weit daneben – zum Reinkommen.": "Only big hits, and the false claims are way off – a gentle start.",
     "Wird im Lauf der Runde kniffliger: unbekanntere Songs, knappere Behauptungen.": "Gets trickier during the round: lesser-known songs, closer claims.",
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Tricky from the start: lesser-known songs too, neighbouring decades and artists from the same era.",
+    "Dein Profil gilt für alle Spiele der Jukebox.": "Your profile applies to all Jukebox games.",
   }
 };

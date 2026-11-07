@@ -39,7 +39,6 @@
     "Deezer-Fehler: {m}": "Deezer-feil: {m}",
     "Dein Code": "Koden din",
     "Dein Name": "Navnet ditt",
-    "Dein Profil gilt für alle Spiele der Jukebox. Es bleibt auf diesem Gerät.": "Profilen din gjelder i alle Jukebox-spillene. Den blir på denne enheten.",
     "Deine Antwort: {a}": "Svaret ditt: {a}",
     "Deine Punkte": "Poengene dine",
     "Deine Statistik": "Statistikken din",
@@ -213,5 +212,6 @@
     "Nur große Hits, die falschen Behauptungen liegen weit daneben – zum Reinkommen.": "Bare store hits, og de usanne påstandene bommer grovt – fint å begynne med.",
     "Wird im Lauf der Runde kniffliger: unbekanntere Songs, knappere Behauptungen.": "Blir vanskeligere i løpet av runden: mindre kjente sanger, knappere påstander.",
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Vanskelig fra start: også mindre kjente sanger, nabotiår og artister fra samme tid.",
+    "Dein Profil gilt für alle Spiele der Jukebox.": "Profilen din gjelder for alle spillene i Jukebox.",
   }
 };
