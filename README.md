@@ -10,6 +10,8 @@ Teil der [Jukebox](https://ku3rb1s.github.io/jukebox/) – Regeln für alle Spie
 - **Lokal starten:** `node server.js` → http://127.0.0.1:8894/ (anderer Port: `PORT=8896 node server.js`)
 - **Daten:** `node scripts/build-data.js` baut `data/tracks.json` aus Gold Record und Older or Newer und schreibt einen
   Prüfbericht nach `scripts/.cache/report.txt`. Danach `DATA_V` in `js/game.js` erhöhen.
+  Für alle Spiele zusammen: `node scripts/update-songs.js` im Ordner `Spiele-Hub` – **nur lokal** (auf den GitHub-Rechnern in den
+  USA liefert Deezer andere Track-IDs und sperrt andere Songs; die GitHub-Automatik ist darum abgeschaltet).
 - **Behauptungen:** `js/claims.js` – alle Regeln gegen unfaire Fakten an einer Stelle, mit Gegenprüfung jeder Karte.
 - **Handlisten:** `scripts/related-artists.json` (Solo-Star und Band, andere Namen – nie gegeneinander als falsche Antwort),
   `scripts/versions-extra.json` (bekannte Remixe/Cover, die Deezer nicht findet). Andere Fassungen sucht `scripts/build-versions.js`.
