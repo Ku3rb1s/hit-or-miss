@@ -1,0 +1,9 @@
+# Neuerungen
+
+## 1.0.0 – 07.11.2026
+- Erste Version: Ein Song läuft, dazu eine Behauptung – wisch nach rechts (Hit), wenn sie stimmt, nach links (Miss), wenn nicht
+- Wischen wie bei Tinder: Die Karte kippt mit dem Finger, färbt sich grün (Hit) oder rot (Miss), dazu ein Stempel – darunter wartet schon die nächste Karte. Oder die runden Knöpfe ✗ / ✓ bzw. die Pfeiltasten
+- Modi: 60 Sekunden (Fehler kosten 3 Sekunden, Serien bringen bis zu vierfache Punkte), Sudden Death (5 Sekunden pro Karte), Entspannt (ohne Zeitlimit, 20 Karten, nach jeder Antwort die Auflösung) und eine Tages-Challenge mit denselben Karten für alle
+- Drei Schwierigkeitsstufen: Leicht (nur große Hits, falsche Behauptungen weit daneben), Normal (wird im Lauf der Runde kniffliger), Schwer (von Anfang an knifflig) – Rekorde und Bestenliste je Stufe
+- Sechs Arten von Behauptungen: Jahrzehnt, vor/nach einem Jahr, Interpret, Titel, Spotify-Streams und älter/neuer als ein anderer Song – alle aus geprüften Daten
+- Am Ende die Auflösung mit allen Karten und den echten Fakten, zum Nachhören
