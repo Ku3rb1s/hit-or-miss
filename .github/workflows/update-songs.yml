@@ -1,6 +1,7 @@
 name: Songlisten aktualisieren
 
-# Jede Woche Montag früh – nach den Läufen in Gold Record und Older or Newer (Montag 0:10), deren Daten hier einfließen:
+# Jede Woche kurz nach Mitternacht (Montag), gleichzeitig mit Gold Record und Older or Newer – darum mit deren Daten der Vorwoche,
+# damit die Tägliche Challenge den ganzen Montag gleich bleibt:
 #   Datenpaket neu bauen, andere Fassungen neuer Songs bei Deezer suchen (build-versions), nochmal bauen.
 # Hochgeladen wird nur, wenn sich tracks.json geändert hat (dann auch DATA_V).
 # Gold Record, Older or Newer und die Jukebox (Skripte) werden nur gelesen – geschrieben wird nur hier.
@@ -8,7 +9,7 @@ name: Songlisten aktualisieren
 # Per Hand: Actions → „Songlisten aktualisieren“ → Run workflow.
 on:
   schedule:
-    - cron: '10 6 * * 1'   # Montag 6:10 UTC = 7:10 (Winter) bzw. 8:10 (Sommer)
+    - cron: '5 23 * * 0'   # Sonntag 23:05 UTC = Montag 0:05 (Winter) bzw. 1:05 (Sommer) – kurz nach dem Wechsel der Tageschallenge
   workflow_dispatch:
 
 permissions:
