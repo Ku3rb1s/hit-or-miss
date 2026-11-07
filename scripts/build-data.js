@@ -106,11 +106,14 @@ const tracks = out.map(s => {
   if (s.g) r.g = s.g;
   return r;
 });
-const built = new Date().toISOString().slice(0, 10);
+// „built“ nur ändern, wenn sich die Daten geändert haben – sonst gälte die Datei bei jedem Lauf als neu (wöchentliche
+// Automatik: neuer DATA_V, alle Handys laden die Songs neu, obwohl nichts anders ist)
+const OUT = path.join(ROOT, 'data', 'tracks.json');
+const old = readJson(OUT, null);
+const same = !!old && JSON.stringify([old.streamsAt, old.artists, old.tracks]) === JSON.stringify([bill.built, artists, tracks]);
+const built = same ? old.built : new Date().toISOString().slice(0, 10);
 const data = { _hinweis: 'Erstellt mit scripts/build-data.js aus den Daten von Gold Record und Older or Newer – nicht von Hand ändern', built, streamsAt: bill.built, artists, tracks };
-fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
-fs.writeFileSync(path.join(ROOT, 'data', 'tracks.json'), JSON.stringify(data));
-const size = fs.statSync(path.join(ROOT, 'data', 'tracks.json')).size;
+const json = JSON.stringify(data), size = Buffer.byteLength(json);
 
 /* ---------- Prüfbericht ---------- */
 const D = HM.prepare(data);
@@ -151,3 +154,12 @@ fs.writeFileSync(path.join(__dirname, '.cache', 'report.txt'), L.join('\n'));
 console.log(L.slice(0, 5).join('\n'));
 console.log('Probelauf:', JSON.stringify(cnt), '· Gegenprüfung fehlgeschlagen:', bad.length);
 console.log('Bericht: scripts/.cache/report.txt');
+// Erst nach dem Probelauf schreiben – bei Fehlern bleibt die alte Datei, und das Skript endet mit Fehlercode (Automatik bricht ab)
+const problems = [
+  bad.length && `${bad.length} Behauptungen haben die Gegenprüfung nicht bestanden`,
+  (cnt.leer || 0) > 30 && `${cnt.leer} von 3.000 Karten konnten nicht gebaut werden`,
+  tracks.length < 3000 && `nur ${tracks.length} Songs – Quelldaten unvollständig?`,
+].filter(Boolean);
+if (problems.length) { console.error('FEHLER – data/tracks.json NICHT geschrieben:\n  ' + problems.join('\n  ')); process.exit(1); }
+if (same) console.log('Keine Änderung – data/tracks.json bleibt, wie sie ist.');
+else { fs.mkdirSync(path.dirname(OUT), { recursive: true }); fs.writeFileSync(OUT, json); console.log('data/tracks.json geschrieben.'); }

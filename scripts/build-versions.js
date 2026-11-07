@@ -30,11 +30,11 @@ const save = () => fs.writeFileSync(outF, JSON.stringify(cache));
 (async () => {
   const todo = data.tracks.filter(t => !(t.i in cache));
   console.log(`${todo.length} von ${data.tracks.length} Songs noch offen`);
-  let n = 0;
+  let n = 0, failed = 0;
   for (const t of todo) {
     const title = HM.cleanTitle(t.t), tk = HM.titleKey(t.t), own = HM.key(data.artists[t.a]);
     const d = await get('https://api.deezer.com/search?' + new URLSearchParams({ q: `track:"${title}"`, limit: 100 }));
-    if (!d) continue;   // beim nächsten Lauf nochmal
+    if (!d || d.error) { failed++; continue; }   // beim nächsten Lauf nochmal
     const names = new Set();
     for (const r of d.data || []) {
       if (HM.titleKey(r.title) !== tk) continue;   // nur derselbe Titel (Zusätze wie „(Remix)“ zählen nicht)
@@ -47,4 +47,8 @@ const save = () => fs.writeFileSync(outF, JSON.stringify(cache));
   }
   save();
   console.log(`\nfertig: ${Object.values(cache).filter(v => v.length).length} Songs mit anderen Fassungen`);
-})();
+  // Deezer nicht erreichbar? Dann mit Fehlercode enden – sonst kämen neue Songs ohne Fassungs-Prüfung ins Spiel
+  // (einzelne Ausreißer sind erlaubt, die werden beim nächsten Lauf nachgeholt)
+  if (failed > Math.max(5, todo.length * .02)) { console.error(`FEHLER: ${failed} von ${todo.length} Suchen bei Deezer fehlgeschlagen`); process.exit(1); }
+  if (failed) console.log(`${failed} Suchen fehlgeschlagen – werden beim nächsten Lauf nachgeholt`);
+})().catch(e => { console.error('FEHLER:', e); process.exit(1); });
