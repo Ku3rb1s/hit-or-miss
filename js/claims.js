@@ -80,6 +80,9 @@ const HM = (() => {
       const e = byArtist.get(s.ai) || byArtist.set(s.ai, { ai: s.ai, A: s.A, ak: s.ak, songs: [], best: 1000, g: new Set() }).get(s.ai);
       e.songs.push(s); e.best = Math.min(e.best, s.f); if (s.g) e.g.add(s.g);
     }
+    // Verwandte Interpreten (Solo-Star und Band …): Schlüssel → Schlüssel der anderen in der Gruppe
+    const relOf = new Map();
+    for (const g of data.rel || []) for (const i of g) { const set = relOf.get(key(artists[i])) || relOf.set(key(artists[i]), new Set()).get(key(artists[i])); for (const j of g) if (j !== i) set.add(key(artists[j])); }
     const famous = [...byArtist.values()].filter(e => e.songs.length >= 3 || e.best <= 250);
     // Jahrzehnt-Körbe für die Songauswahl (50er zu den 60ern), je Korb nach Bekanntheit sortiert
     const buckets = new Map();
@@ -88,12 +91,14 @@ const HM = (() => {
     const builtYear = +String(data.built).slice(0, 4);
     const staleStreams = (now - Date.parse(data.streamsAt || data.built)) / 864e5 > 182;   // Zahlen älter als ½ Jahr → keine „falsch“-Behauptungen
     const withStreams = tracks.filter(s => s.n).sort((x, y) => x.f - y.f || x.i - y.i);
-    D = { tracks, titleArt, byArtist, famous, withStreams, buckets: [...buckets.entries()].sort((a, b) => a[0] - b[0]), builtYear, staleStreams,
+    D = { tracks, titleArt, byArtist, famous, relOf, withStreams, buckets: [...buckets.entries()].sort((a, b) => a[0] - b[0]), builtYear, staleStreams,
       streamsAt: data.streamsAt || data.built, byId: new Map(tracks.map(s => [s.i, s])) };
     return D;
   }
 
   /* ---------- Hilfen ---------- */
+  // Gehört Interpret X zur selben Gruppe wie einer der Beteiligten? (George Michael ↔ Wham!, Beyoncé ↔ Destiny's Child)
+  const kin = (x, s) => { const g = D.relOf.get(key(x)); return !!g && (g.has(s.ak) || s.parts.some(p => g.has(key(p)))); };
   const lerp = (a, b, k) => a + (b - a) * k;
   const pick = (a, R) => a[Math.floor(R() * a.length)];
   const decOf = y => Math.floor(y / 10) * 10;
@@ -128,7 +133,7 @@ const HM = (() => {
       if (h > .5 && s.g) { const sg = c.filter(e => e.g.has(s.g)); if (sg.length >= 5) c = sg; }
       for (let n = 0; n < 12 && c.length; n++) {
         const e = pick(c, R);
-        if (others.has(e.ak) || related(e.A, s.parts) || related(e.A, s.v)) { c = c.filter(x => x !== e); continue; }
+        if (others.has(e.ak) || related(e.A, s.parts) || related(e.A, s.v) || kin(e.A, s)) { c = c.filter(x => x !== e); continue; }
         return { k: 'artist', A: e.A, ok: false, hide: 'a' };
       }
       return null;
@@ -175,7 +180,7 @@ const HM = (() => {
     switch (c.k) {
       case 'dec': return ys.every(y => !edge(y) && (decOf(y) === c.d) === c.ok) && yearOk(s);
       case 'when': return ys.every(y => Math.abs(y - c.y) >= 3 && ((c.dir === 'before' ? y < c.y : y > c.y) === c.ok)) && yearOk(s);
-      case 'artist': return c.ok ? key(c.A) === s.ak : key(c.A) !== s.ak && !related(c.A, s.parts) && !related(c.A, s.v) && !D.titleArt.get(s.tk).has(key(c.A));
+      case 'artist': return c.ok ? key(c.A) === s.ak : key(c.A) !== s.ak && !related(c.A, s.parts) && !related(c.A, s.v) && !kin(c.A, s) && !D.titleArt.get(s.tk).has(key(c.A));
       case 'title': return c.ok ? titleKey(c.T) === s.tk : titleKey(c.T) !== s.tk;
       case 'streams': return c.ok ? s.n >= c.n : s.n <= c.n * .85 && !D.staleStreams;
       case 'older': {

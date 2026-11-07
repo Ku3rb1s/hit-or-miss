@@ -2,9 +2,9 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.5', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.6', APP_DATE = '08.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
-const DATA_V = 'd3';
+const DATA_V = 'd4';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
@@ -593,7 +593,8 @@ function renderHome() {
   $('#diffInfo').textContent = tx(DIFF_INFO[opt.diff]);
   const best = LS.get(bestKey(), 0);
   $('#bestPill').textContent = best ? '🏆 ' + tx('Rekord: {n}', { n: opt.mode === 'zen' ? best + '/' + ZEN_CARDS : fmtN(best) }) : tx('Noch kein Rekord');
-  $('#demoClaim').textContent = tx('erschien in den {d}ern', { d: '70' });
+  // Beispiel auf der Startseite: stimmt (Stand 07.11.2026: 5,67 Mrd. – Streams wachsen nur, es bleibt also wahr)
+  $('#demoClaim').textContent = tx('hat über {n} Streams bei Spotify', { n: tx('{n} Mrd.', { n: 5 }) });
   const d = today(), res = LS.get('daily.' + d), st = dailyStreak();
   $('#dailyTitle').textContent = tx('Tägliche Challenge #{n}', { n: dayNo(d) });
   $('#dailySub').textContent = res ? (res.done ? tx('Heute: {n} Punkte', { n: fmtN(res.score) }) : tx('Heute abgebrochen')) + (st ? ' · 🔥 ' + streakTxt(st) : '') + ' · ' + tx('nochmal spielen (zählt nicht)')
@@ -728,7 +729,12 @@ $('#btnResetAll').onclick = async () => {
 self.liveLang = () => {
   renderHome();
   if (sheet.open) { renderSettings(); goPage($('#sheetSettings .page.active')?.dataset.page || 'main'); }
-  if (G && !$('#game').classList.contains('hidden')) { renderHud(); const el = $("#deck .card.top:not(.fly) .claim span"); if (el && G.cur) el.innerHTML = claimHtml(G.cur); }
+  if (G && !$('#game').classList.contains('hidden')) {
+    renderHud();
+    const el = $('#deck .card.top:not(.fly) .claim span'); if (el && G.cur) el.innerHTML = claimHtml(G.cur);
+    const un = $('#deck .card.under .claim span'); if (un && G.queue[0]) un.innerHTML = claimHtml(G.queue[0]);   // auch die Karte darunter
+    $$('#deck .card .qm').forEach(q => { if (q.textContent !== '? ? ?') q.textContent = tx('Wer ist das?'); });
+  }
   if (G && !$('#end').classList.contains('hidden')) renderEndList();
 };
 document.addEventListener('keydown', e => {

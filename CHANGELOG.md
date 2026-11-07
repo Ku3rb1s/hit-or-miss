@@ -1,5 +1,12 @@
 # Neuerungen
 
+## 1.0.6 – 08.11.2026
+- Startseite: neues Beispiel – „Blinding Lights“ von The Weeknd hat über 5 Mrd. Streams bei Spotify
+- Fairere Interpreten-Behauptungen: Solo-Stars und ihre Bands (und andere Namen derselben Person) gelten als verwandt – z. B. kommt George Michael bei „Wake Me Up Before You Go-Go“ (Wham!) nicht mehr als „falscher“ Interpret
+- Unsichere Jahre: Passt ein Jahr nicht zur Karriere des Interpreten (z. B. „We Ride“ von Rihanna mit 1995 statt 2006), gibt es dazu keine Jahres-Behauptungen mehr
+- Sammel-Namen wie „Verschiedene Interpreten“ als Interpret entfernt
+- Sprachwechsel mitten in der Runde übersetzt jetzt auch die Karte darunter
+
 ## 1.0.5 – 07.11.2026
 - Fairere Interpreten-Behauptungen: Wer an einem Song mitwirkt (Duett, Gast – z. B. David Bowie bei „Under Pressure“), kommt nicht mehr als „falscher“ Interpret. Ebenso alle, die eine eigene Fassung des Titels haben (Cover, Remix – z. B. Otis Redding bei „Stand by Me“, Disco Lines bei „Good Luck, Babe!“)
 - Zwei Jahre korrigiert (What’s Up?, You’re Beautiful) – jetzt einig mit Gold Record und Older or Newer

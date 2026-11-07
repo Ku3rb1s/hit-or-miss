@@ -11,6 +11,8 @@ Teil der [Jukebox](https://ku3rb1s.github.io/jukebox/) – Regeln für alle Spie
 - **Daten:** `node scripts/build-data.js` baut `data/tracks.json` aus Gold Record und Older or Newer und schreibt einen
   Prüfbericht nach `scripts/.cache/report.txt`. Danach `DATA_V` in `js/game.js` erhöhen.
 - **Behauptungen:** `js/claims.js` – alle Regeln gegen unfaire Fakten an einer Stelle, mit Gegenprüfung jeder Karte.
+- **Handlisten:** `scripts/related-artists.json` (Solo-Star und Band, andere Namen – nie gegeneinander als falsche Antwort),
+  `scripts/versions-extra.json` (bekannte Remixe/Cover, die Deezer nicht findet). Andere Fassungen sucht `scripts/build-versions.js`.
 - **Icons:** `node scripts/render-icons.js` (aus `logo.svg`, braucht Microsoft Edge)
 - **Übersetzungen prüfen:** `node scripts/check-lang.js`
 - **Speicher:** `hom.best.<60s|sd|zen>.<easy|normal|hard>`, `hom.daily.<Tag>`, `hom.dailyLog`, `hom.stats`, `hom.ach` (abgeglichen),

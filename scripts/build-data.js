@@ -8,6 +8,7 @@
 
    tracks.json:
      artists: Interpreten (Schreibweisen zusammengeführt, ohne „feat.“-Teil)
+     rel:     Gruppen verwandter Interpreten (Nummern in artists, aus scripts/related-artists.json)
      tracks:  { i: Deezer-ID, t: Titel, a: Nr. in artists, a0?: Original-Interpretenfeld (falls anders), p?: weitere Mitwirkende,
                 v?: Nr. der Interpreten mit eigener Fassung desselben Titels (nie als falsche Antwort),
                 y: Jahr, y2?: abweichendes Jahr der zweiten Quelle, q: Jahr geprüft (0 nein, 1 eine Quelle, 2 zwei Quellen einig),
@@ -28,8 +29,8 @@ for (const s of all) { if (years[s.id]) { s.y = years[s.id]; delete s.ya; } if (
 // Dubletten raus (Schlüssel wie Gold Record: Hauptinterpret + Titel ohne Zusätze) – der erste (geprüfte) Eintrag bleibt
 const songKey = (t, a) => HM.key(String(a).split(/\s*(?:feat\.?|ft\.?|featuring|with|&|,| x )\s*/i)[0]) + '|' + HM.titleKey(t);
 const seen = new Set();
-// Cover-Bands, Karaoke, Tribute: das ist nicht der Original-Interpret
-const FAKE = /cover band|hello i'?m |clearwater revival experience|a\.k\.a\.|karaoke|tribute|made famous|in the style of/i;
+// Cover-Bands, Karaoke, Tribute, Sammel-Namen („Verschiedene Interpreten“): das ist nicht der Original-Interpret
+const FAKE = /cover band|hello i'?m |clearwater revival experience|a\.k\.a\.|karaoke|tribute|made famous|in the style of|various artists|verschiedene interpreten|original cast/i;
 const out = [], dropped = { dup: 0, fake: 0, de: 0 };
 for (const s of all) {
   if (FAKE.test(s.a) || FAKE.test(s.t)) { dropped.fake++; continue; }
@@ -93,6 +94,23 @@ const extraVersions = readJson(path.join(__dirname, 'versions-extra.json'), {});
 const extraByKey = new Map(Object.entries(extraVersions).filter(([k]) => !k.startsWith('_')).map(([k, v]) => { const [a, t] = k.split(' – '); return [songKey(t, a), v]; }));
 const poolIdx = new Map(artists.map((a, i) => [HM.key(a), i]));   // gespeichert wird die Nummer des Interpreten (spart Platz)
 let withFeat = 0, withVersions = 0;
+// Verwandte Interpreten (Solo-Star und Band, andere Namen): scripts/related-artists.json → Gruppen von Interpreten-Nummern
+const rel = (readJson(path.join(__dirname, 'related-artists.json'), {}).groups || [])
+  .map(g => [...new Set(g.map(n => poolIdx.get(HM.key(n))).filter(i => i != null))]).filter(g => g.length > 1);
+
+// Jahres-Ausreißer: Ein nur einmal geprüftes Jahr, das nicht zur Karriere des Interpreten passt (mehr als 7 Jahre vor seinen
+// anderen Songs oder mehr als 15 danach), gilt als unsicher – keine Jahres-Behauptungen. Gefunden u. a. „We Ride“ (Rihanna)
+// mit 1995 statt 2006, „Born Again“ (LISA) mit 2007 statt 2025. Zwei einige Quellen (q 2) bleiben („Now and Then“ 2023).
+const byArtist = new Map();
+for (const s of out) if (s.q) (byArtist.get(s._ak) || byArtist.set(s._ak, []).get(s._ak)).push(s);
+const yearOutliers = [];
+for (const list of byArtist.values()) for (const s of list) {
+  if (s.q !== 1) continue;
+  const o = list.filter(x => x !== s).map(x => x.y);
+  if (o.length < 2) continue;
+  const lo = Math.min(...o), hi = Math.max(...o);
+  if (s.y < lo - 7 || s.y > hi + 15) { s.q = 0; yearOutliers.push(`  ${s.t} – ${s.a}: ${s.y} (andere Songs ${lo}–${hi})`); }
+}
 
 const tracks = out.map(s => {
   const r = { i: s.id, t: s.t, a: aIndex.get(s._ak), y: s.y, q: s.q, c: s.c, f: s._f };
@@ -110,9 +128,9 @@ const tracks = out.map(s => {
 // Automatik: neuer DATA_V, alle Handys laden die Songs neu, obwohl nichts anders ist)
 const OUT = path.join(ROOT, 'data', 'tracks.json');
 const old = readJson(OUT, null);
-const same = !!old && JSON.stringify([old.streamsAt, old.artists, old.tracks]) === JSON.stringify([bill.built, artists, tracks]);
+const same = !!old && JSON.stringify([old.streamsAt, old.artists, old.rel || [], old.tracks]) === JSON.stringify([bill.built, artists, rel, tracks]);
 const built = same ? old.built : new Date().toISOString().slice(0, 10);
-const data = { _hinweis: 'Erstellt mit scripts/build-data.js aus den Daten von Gold Record und Older or Newer – nicht von Hand ändern', built, streamsAt: bill.built, artists, tracks };
+const data = { _hinweis: 'Erstellt mit scripts/build-data.js aus den Daten von Gold Record und Older or Newer – nicht von Hand ändern', built, streamsAt: bill.built, artists, rel, tracks };
 const json = JSON.stringify(data), size = Buffer.byteLength(json);
 
 /* ---------- Prüfbericht ---------- */
@@ -124,7 +142,9 @@ L.push(`Jahr geprüft: ${tracks.filter(t => t.q).length} · zwei Quellen einig: 
 L.push(`Interpreten: ${artists.length} · zusammengeführte Schreibweisen: ${merged.length}`);
 L.push(`Weitere Beteiligte (Gold Record feat.json): ${withFeat} Songs · andere Fassungen mit Interpreten aus dem Spiel: ${withVersions} Songs`
   + (Object.keys(versions).length < tracks.length ? ` (Deezer-Suche erst für ${Object.keys(versions).length} von ${tracks.length} Songs – node scripts/build-versions.js)` : ''));
+L.push(`Verwandte Interpreten: ${rel.length} Gruppen · unsichere Jahre (Ausreißer, keine Jahres-Behauptungen): ${yearOutliers.length}`);
 L.push(`Datei: ${(size / 1024).toFixed(0)} KB`, '');
+L.push('Unsichere Jahre:', ...yearOutliers, '');
 L.push('Uneinige Jahre:', ...out.filter(s => s.y2).map(s => `  ${s.t} – ${s.a}: ${s.y} / ${s.y2}`), '');
 L.push('Zusammengeführt:', ...merged.map(m => '  ' + m), '');
 const fmt = c => {
