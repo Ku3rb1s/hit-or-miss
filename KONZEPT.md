@@ -1,6 +1,6 @@
 # Konzept: Hit or Miss – neues Jukebox-Spiel „Wahr oder falsch?“
 
-Stand: 07.11.2026 · Version 1.0.0 ist gebaut (lokal, noch nicht hochgeladen). Für die offenen Fragen in Abschnitt 8 wurden die Vorschläge aus diesem Konzept umgesetzt.
+Stand: 07.11.2026 · Version 1.0.0 ist veröffentlicht (ku3rb1s.github.io/hit-or-miss/). Für die offenen Fragen in Abschnitt 8 wurden die Vorschläge aus diesem Konzept umgesetzt, dazu auf Wunsch: Wischen wie bei Tinder, Modus „Entspannt“ ohne Zeitlimit, drei Schwierigkeitsstufen, Logo „Kartenstapel“.
 Name gewählt: **Hit or Miss** (Arbeitsname war „Hit oder Niete“).
 
 ---
