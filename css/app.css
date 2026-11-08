@@ -221,3 +221,14 @@ html.ios .vol-game input,html.ios .vol-game #volVal{display:none}
    verkleinert, bis alles in die Karte passt – dafür darf .claim schrumpfen und schneidet nichts sichtbar ab */
 .card-song{flex:none}
 .claim{min-height:0;overflow:hidden}
+
+/* Beispielkarte auf der Startseite: lange Wörter (Spanisch „reproducciones“, Norwegisch „strømminger“) dürfen umbrechen,
+   auf sehr schmalen Handys (iPhone SE, 320 px) alles etwas kleiner – sonst ragt die Karte über den Rand */
+.demo-card{min-width:0}
+.demo-card b{overflow-wrap:anywhere;hyphens:auto;-webkit-hyphens:auto}
+@media (max-width:380px){
+  .demo{gap:6px}
+  .demo-side{font-size:.72rem;padding:.3em .5em}
+  .demo-card{width:min(170px,50vw);padding:14px 10px}
+  .demo-card b{font-size:1rem}
+}

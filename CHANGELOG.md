@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.11 – 08.11.2026
+- Startseite: Die Beispielkarte passt auf sehr schmalen Handys auch auf Spanisch und Norwegisch (lange Wörter brechen um)
+
 ## 1.0.10 – 07.11.2026
 - Kleine iPhones (z. B. SE): nichts läuft mehr seitlich aus dem Bild, Auswahlknöpfe mit langen Wörtern passen
 
