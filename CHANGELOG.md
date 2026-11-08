@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.18 – 08.11.2026
+- Fenster: Ein Doppeltipp auf „Fertig“ tippt nicht mehr versehentlich, was darunter liegt
+
 ## 1.0.17 – 08.11.2026
 - Behoben: Direkt nach dem Schließen eines Fensters ging der nächste Tipp verloren, solange das Fenster noch wegglitt
 
