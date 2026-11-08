@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.16 – 08.11.2026
+- Abgleich: Gelöschte Werte (z. B. „Rekorde löschen“) kommen nicht mehr von anderen Geräten zurück
+
 ## 1.0.15 – 08.11.2026
 - Abgleich: On-Tour-Sterne zählen jetzt in der Jukebox-Bestenliste
 
