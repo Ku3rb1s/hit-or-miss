@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.7', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.8', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd5';
 const $ = s => document.querySelector(s);
@@ -446,7 +446,7 @@ function endGame() {
   const fresh = checkAch(G);
   $('#endMode').textContent = modeLabel(G);
   $('#endKicker').textContent = G.mode === 'sd' ? tx('Richtig in Folge') : G.mode === 'zen' ? tx('Richtig von {n}', { n: ZEN_CARDS }) : tx('Deine Punkte');
-  $('#endScore').textContent = fmtN(value);
+  window.countUp ? countUp($('#endScore'), value, fmtN) : $('#endScore').textContent = fmtN(value);
   $('#endSub').textContent = isBest && best ? '🏆 ' + tx('Neuer Rekord!') : isBest ? '🏆 ' + tx('Erster Rekord!') : best ? tx('Rekord: {n}', { n: fmtN(best) }) : '';
   $('#endBest').textContent = G.daily ? '🔥 ' + streakTxt(dailyStreak()) : tx('Rekord: {n}', { n: fmtN(Math.max(best, value)) });
   const avg = G.log.length ? G.log.reduce((a, l) => a + l.ms, 0) / G.log.length / 1000 : 0;
