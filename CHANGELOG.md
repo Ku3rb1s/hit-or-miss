@@ -1,5 +1,9 @@
 # Neuerungen
 
+## 1.0.13 – 07.11.2026
+- Endbildschirm: Ergebnis, Details und Knöpfe erscheinen kurz nacheinander
+- Songdaten aktualisiert
+
 ## 1.0.12 – 07.11.2026
 - Unnötige Anzeige „Musik-Quiz“ auf der Startseite entfernt
 
