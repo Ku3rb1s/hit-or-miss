@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.19 – 08.11.2026
+- App über Nacht offen: Die Tägliche Challenge auf der Startseite zeigt beim Zurückkehren den neuen Tag
+
 ## 1.0.18 – 08.11.2026
 - Fenster: Ein Doppeltipp auf „Fertig“ tippt nicht mehr versehentlich, was darunter liegt
 

@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.18', APP_DATE = '08.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.19', APP_DATE = '08.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd6';
 const $ = s => document.querySelector(s);
@@ -760,3 +760,10 @@ document.addEventListener('keydown', e => {
 applyTheme(); applyVol(); renderHome();
 loadData().catch(() => {});
 addEventListener('jukebox-sync', () => { if (!G) renderHome(); if (document.querySelector('dialog[open]')) renderSettings(); });
+// App über Nacht offen gelassen: beim Zurückkehren die Tages-Challenge auf der Startseite für den neuen Tag auffrischen
+let shownDay = today();
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden || today() === shownDay) return;
+  shownDay = today();
+  if (!G) renderHome();
+});
