@@ -1,5 +1,10 @@
 # Neuerungen
 
+## 1.0.7 – 07.11.2026
+- - Fenster wie auf dem iPhone: am Kopf (oder oben im Inhalt) nach unten wegwischen; beim Schließen gleiten sie nach unten weg
+- - Knöpfe reagieren schneller beim Drücken, Hover-Effekte nur noch mit Maus
+- - „Bewegung reduzieren“ und „Transparenz reduzieren“ (iPhone-Bedienungshilfen) werden beachtet
+
 ## 1.0.6 – 08.11.2026
 - Startseite: neues Beispiel – „Blinding Lights“ von The Weeknd hat über 5 Mrd. Streams bei Spotify
 - Fairere Interpreten-Behauptungen: Solo-Stars und ihre Bands (und andere Namen derselben Person) gelten als verwandt – z. B. kommt George Michael bei „Wake Me Up Before You Go-Go“ (Wham!) nicht mehr als „falscher“ Interpret
