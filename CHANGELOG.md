@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.12 – 07.11.2026
+- Unnötige Anzeige „Musik-Quiz“ auf der Startseite entfernt
+
 ## 1.0.11 – 08.11.2026
 - Startseite: Die Beispielkarte passt auf sehr schmalen Handys auch auf Spanisch und Norwegisch (lange Wörter brechen um)
 
