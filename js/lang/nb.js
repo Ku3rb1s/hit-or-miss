@@ -216,5 +216,7 @@
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Vanskelig fra start: også mindre kjente sanger, nabotiår og artister fra samme tid.",
     "Dein Profil gilt für alle Spiele der Jukebox.": "Profilen din gjelder for alle spillene i Jukebox.",
     "Abgeglichen · verwalten in der Jukebox": "Synkronisert · administreres i Jukebox",
+    // Adventskalender
+    "Aus dem Adventskalender": "Fra julekalenderen",
   }
 };

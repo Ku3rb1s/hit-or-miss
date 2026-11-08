@@ -216,5 +216,7 @@
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Difícil desde el principio: también canciones menos conocidas, décadas vecinas y artistas de la misma época.",
     "Dein Profil gilt für alle Spiele der Jukebox.": "Tu perfil vale para todos los juegos de la Jukebox.",
     "Abgeglichen · verwalten in der Jukebox": "Sincronizado · gestiónalo en la Jukebox",
+    // Adventskalender
+    "Aus dem Adventskalender": "Del calendario de Adviento",
   }
 };

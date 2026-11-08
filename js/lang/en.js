@@ -216,5 +216,7 @@
     "Von Anfang an knifflig: auch unbekanntere Songs, Nachbar-Jahrzehnte und Interpreten aus derselben Zeit.": "Tricky from the start: lesser-known songs too, neighbouring decades and artists from the same era.",
     "Dein Profil gilt für alle Spiele der Jukebox.": "Your profile applies to all Jukebox games.",
     "Abgeglichen · verwalten in der Jukebox": "Synced · manage it in the Jukebox",
+    // Adventskalender
+    "Aus dem Adventskalender": "From the Advent calendar",
   }
 };
