@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.9 – 08.11.2026
+- Lange Behauptungen (lange Titel oder Namen, schmale Handys wie das iPhone SE): Die Schrift wird so weit kleiner, dass alles auf die Karte passt – vorher wurde der Rest abgeschnitten
+
 ## 1.0.8 – 07.11.2026
 - Punkte am Rundenende zählen kurz hoch
 

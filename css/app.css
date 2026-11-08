@@ -216,3 +216,8 @@ html.ios .vol-game input,html.ios .vol-game #volVal{display:none}
 [data-v="easy"] .lvl b:nth-child(-n+1){background:var(--hit)}
 [data-v="normal"] .lvl b:nth-child(-n+2){background:#f59e0b}
 [data-v="hard"] .lvl b{background:var(--miss)}
+
+/* Lange Behauptungen (lange Titel/Namen, schmale Handys): Die Schrift wird per JS (fitClaims in js/game.js) so weit
+   verkleinert, bis alles in die Karte passt – dafür darf .claim schrumpfen und schneidet nichts sichtbar ab */
+.card-song{flex:none}
+.claim{min-height:0;overflow:hidden}

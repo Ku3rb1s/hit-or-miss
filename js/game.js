@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.8', APP_DATE = '07.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.9', APP_DATE = '08.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd5';
 const $ = s => document.querySelector(s);
@@ -263,8 +263,19 @@ function renderCard(c) {
   deck.querySelectorAll('.card.top:not(.fly), .card.under').forEach(el => el.remove());
   const next = G.queue[0];
   deck.insertAdjacentHTML('beforeend', (next ? cardHtml(next, 'under') : '') + cardHtml(c, 'top', first ? 'enter' : 'promote'));
+  fitClaims();
   renderPlaying();
 }
+// Lange Behauptungen passend machen: Schrift schrittweise kleiner, bis der Text in die Karte passt (z. B. 320 px breites
+// iPhone SE und »La Copa de la Vida …« von La Arrolladora Banda El Limón De Rene Camacho). Nicht kleiner als 13 px.
+function fitClaims() {
+  for (const cl of $$('#deck .card .claim')) {
+    cl.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(cl).fontSize);
+    while (cl.scrollHeight > cl.clientHeight + 1 && size > 13) { size -= 1; cl.style.fontSize = size + 'px'; }
+  }
+}
+addEventListener('resize', () => { if (G && !G.over) fitClaims(); });
 // Stempel und Farbe einer Karte setzen (k = 0 … 1, dir = 1 Hit, -1 Miss)
 function tilt(el, dir, k) {
   el.querySelector('.stamp.hit').style.opacity = dir > 0 ? k : 0;
@@ -734,6 +745,7 @@ self.liveLang = () => {
     const el = $('#deck .card.top:not(.fly) .claim span'); if (el && G.cur) el.innerHTML = claimHtml(G.cur);
     const un = $('#deck .card.under .claim span'); if (un && G.queue[0]) un.innerHTML = claimHtml(G.queue[0]);   // auch die Karte darunter
     $$('#deck .card .qm').forEach(q => { if (q.textContent !== '? ? ?') q.textContent = tx('Wer ist das?'); });
+    fitClaims();
   }
   if (G && !$('#end').classList.contains('hidden')) renderEndList();
 };
