@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.14 – 08.11.2026
+- Spiele-Menü (Logo lange drücken): neues Spiel On Tour – eine Reise durch die Musikgeschichte
+
 ## 1.0.13 – 07.11.2026
 - Endbildschirm: Ergebnis, Details und Knöpfe erscheinen kurz nacheinander
 - Songdaten aktualisiert
