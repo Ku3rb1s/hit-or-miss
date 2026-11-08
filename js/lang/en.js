@@ -133,6 +133,10 @@
     "Tausender": "Thousand club",
     "Teilen": "Share",
     "Tiere": "Animals",
+
+    "Winter & Weihnachten": "Winter & Christmas",
+
+    "Essen & Trinken": "Food & Drink",
     "Tippe auf „Hinzufügen“.": "Tap “Add”.",
     "Tippe auf „Teilen“": "Tap “Share”",
     "Titel": "Title",

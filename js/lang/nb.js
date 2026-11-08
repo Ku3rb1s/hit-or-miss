@@ -133,6 +133,10 @@
     "Tausender": "Tusenklubben",
     "Teilen": "Del",
     "Tiere": "Dyr",
+
+    "Winter & Weihnachten": "Vinter og jul",
+
+    "Essen & Trinken": "Mat og drikke",
     "Tippe auf „Hinzufügen“.": "Trykk på «Legg til».",
     "Tippe auf „Teilen“": "Trykk på «Del»",
     "Titel": "Tittel",

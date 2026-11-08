@@ -133,6 +133,10 @@
     "Tausender": "Club des mille",
     "Teilen": "Partager",
     "Tiere": "Animaux",
+
+    "Winter & Weihnachten": "Hiver & Noël",
+
+    "Essen & Trinken": "À boire et à manger",
     "Tippe auf „Hinzufügen“.": "Touche « Ajouter ».",
     "Tippe auf „Teilen“": "Touche « Partager »",
     "Titel": "Titre",

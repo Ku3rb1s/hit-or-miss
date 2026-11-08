@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.20 – 08.11.2026
+- Neue Avatare: über 100 weitere Emojis – mehr Tiere, Winter & Weihnachten, Essen & Trinken und mehr
+
 ## 1.0.19 – 08.11.2026
 - App über Nacht offen: Die Tägliche Challenge auf der Startseite zeigt beim Zurückkehren den neuen Tag
 

@@ -133,6 +133,10 @@
     "Tausender": "Club de los mil",
     "Teilen": "Compartir",
     "Tiere": "Animales",
+
+    "Winter & Weihnachten": "Invierno y Navidad",
+
+    "Essen & Trinken": "Comida y bebida",
     "Tippe auf „Hinzufügen“.": "Toca «Añadir».",
     "Tippe auf „Teilen“": "Toca «Compartir»",
     "Titel": "Título",
