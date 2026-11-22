@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.24 – 22.11.2026
+- Songdaten aktualisiert
+
 ## 1.0.23 – 16.11.2026
 - Bestenliste: Rekorde aus Needle Drop werden jetzt auch von hier aus gemeldet (gemeinsame sync.js)
 
