@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.25', APP_DATE = '24.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.26', APP_DATE = '24.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd8';
 const $ = s => document.querySelector(s);
@@ -30,10 +30,10 @@ const THEMES = [['graphit', 'Graphit', '#3a4252', '#1f3a32'], ['ozean', 'Ozean',
   ['abend', 'Abend', '#7a2e1c', '#7d1f4a'], ['lila', 'Lila', '#4a22a0', '#8a1458'], ['oled', 'OLED', '#000', '#000']];
 const LOC = () => ({ de: 'de-DE', en: 'en-GB', fr: 'fr-FR', es: 'es-ES', nb: 'nb-NO' }[curLang] || 'de-DE');
 const fmtN = n => Math.round(n).toLocaleString(LOC());
-const SITE = 'https://ku3rb1s.github.io/hit-or-miss/';
+const SITE = 'https://jukeboxquiz.de/hit-or-miss/';
 const EPOCH = '2026-11-07';   // Tägliche Challenge #1
 
-// Gespeichert wird mit „hom.“ vorne – alle Spiele teilen sich den Browser-Speicher von ku3rb1s.github.io
+// Gespeichert wird mit „hom.“ vorne – alle Spiele teilen sich den Browser-Speicher von jukeboxquiz.de
 const LS = {
   get(k, d) { try { const v = localStorage.getItem('hom.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v) { try { localStorage.setItem('hom.' + k, JSON.stringify(v)); } catch {} },
