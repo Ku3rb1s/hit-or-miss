@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.26', APP_DATE = '24.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.27', APP_DATE = '24.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd8';
 const $ = s => document.querySelector(s);
@@ -767,3 +767,22 @@ document.addEventListener('visibilitychange', () => {
   shownDay = today();
   if (!G) renderHome();
 });
+
+// Aus der Jukebox („Heute noch offen“): ?daily=1 zeigt sofort einen Knopf „Challenge starten“ (wie Needle Drop / Gold Record).
+// Nicht automatisch starten: Die Challenge zählt ab dem Start, und iPhone/iPad spielen Ton erst nach einem Tipp.
+// Schon gespielt → einfach die Startseite (dort steht das heutige Ergebnis; nochmal spielen würde nicht zählen).
+if (new URLSearchParams(location.search).has('daily')) {
+  history.replaceState(history.state, '', location.pathname + location.hash);   // beim Neuladen nicht noch einmal
+  if (!LS.get('daily.' + today())) {
+    const o = document.createElement('div');
+    o.style.cssText = 'position:fixed;inset:0;z-index:999;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)';
+    const btn = 'font:inherit;font-weight:800;color:#fff;border:0;cursor:pointer;border-radius:18px';
+    o.innerHTML = `<div style="display:grid;gap:10px;justify-items:center;text-align:center">
+      <div style="font-size:1rem;font-weight:800;color:#fff;opacity:.8">📅 ${esc(tx('Tägliche Challenge'))}</div>
+      <button type="button" data-go style="${btn};font-size:1.2rem;padding:18px 34px;background:var(--accent,#1ed760);color:#000">▶ ${esc(tx('Challenge starten'))}</button>
+      <button type="button" style="${btn};font-size:.95rem;padding:10px 20px;background:none;opacity:.75">${esc(tx('Abbrechen'))}</button></div>`;
+    o.onclick = e => { const b = e.target.closest('button'); if (!b && e.target !== o) return; o.remove(); if (b?.hasAttribute('data-go')) $('#dailyBtn').click(); };
+    document.body.appendChild(o);
+    o.querySelector('[data-go]').focus();
+  }
+}

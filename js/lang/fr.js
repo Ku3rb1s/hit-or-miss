@@ -17,6 +17,7 @@
     "7 Tage in Folge die Tägliche Challenge gespielt": "Défi du jour joué 7 jours d’affilée",
     "<b>Tipp:</b> Logo gedrückt halten – zur Jukebox und zu den anderen Spielen.": "<b>Astuce :</b> maintiens le logo appuyé – vers la Jukebox et les autres jeux.",
     "Abbrechen": "Annuler",
+    "Challenge starten": "Lancer le défi",
     "Abend": "Soir",
     "Alle": "Tous",
     "Alle Spiele": "Tous les jeux",

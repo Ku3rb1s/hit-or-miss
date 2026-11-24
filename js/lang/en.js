@@ -17,6 +17,7 @@
     "7 Tage in Folge die Tägliche Challenge gespielt": "Played the daily challenge 7 days in a row",
     "<b>Tipp:</b> Logo gedrückt halten – zur Jukebox und zu den anderen Spielen.": "<b>Tip:</b> Press and hold the logo – to the Jukebox and the other games.",
     "Abbrechen": "Cancel",
+    "Challenge starten": "Start challenge",
     "Abend": "Evening",
     "Alle": "All",
     "Alle Spiele": "All games",

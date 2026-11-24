@@ -17,6 +17,7 @@
     "7 Tage in Folge die Tägliche Challenge gespielt": "Reto diario jugado 7 días seguidos",
     "<b>Tipp:</b> Logo gedrückt halten – zur Jukebox und zu den anderen Spielen.": "<b>Consejo:</b> mantén pulsado el logo para ir a la Jukebox y a los demás juegos.",
     "Abbrechen": "Cancelar",
+    "Challenge starten": "Empezar el reto",
     "Abend": "Atardecer",
     "Alle": "Todas",
     "Alle Spiele": "Todos los juegos",

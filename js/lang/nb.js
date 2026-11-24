@@ -17,6 +17,7 @@
     "7 Tage in Folge die Tägliche Challenge gespielt": "Spilte dagens utfordring 7 dager på rad",
     "<b>Tipp:</b> Logo gedrückt halten – zur Jukebox und zu den anderen Spielen.": "<b>Tips:</b> Hold inne logoen – til Jukebox og de andre spillene.",
     "Abbrechen": "Avbryt",
+    "Challenge starten": "Start utfordringen",
     "Abend": "Kveld",
     "Alle": "Alle",
     "Alle Spiele": "Alle spill",
