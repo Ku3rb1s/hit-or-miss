@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.28 – 28.11.2026
+- Vorbereitung für die Jukebox-App fürs iPhone: Dort fällt „Als App installieren“ weg
+
 ## 1.0.27 – 24.11.2026
 - Aus der Jukebox („Heute noch offen“) erscheint jetzt wie bei Needle Drop und Gold Record ein Knopf „Challenge starten“ (oder Abbrechen)
 
