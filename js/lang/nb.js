@@ -45,7 +45,6 @@
     "Design": "Utseende",
     "Die 30-s-Vorschauen und Cover kommen direkt von deezer.com – dafür ruft dein Browser Deezer auf.": "Forhåndsvisningene på 30 s og coverne kommer rett fra deezer.com – nettleseren din kontakter Deezer for det.",
     "Die App speichert getrennt vom Browser: Einstellungen und Anmeldungen gibst du dort einmal neu ein.": "Appen lagrer data separat fra nettleseren: der legger du inn innstillinger og innlogginger én gang til.",
-    "Die Lautstärke stellst du direkt im Spiel ein. Die Musik startet bei jeder Karte von selbst.": "Volumet stiller du inn rett i spillet. Musikken starter av seg selv for hvert kort.",
     "Die Neuerungen konnten nicht geladen werden.": "Kunne ikke laste nyhetene.",
     "Die Songliste konnte nicht geladen werden.": "Sanglisten kunne ikke lastes inn.",
     "Die nächste Challenge gibt es morgen.": "Neste utfordring kommer i morgen.",
@@ -79,8 +78,6 @@
     "Keine Fehler – stark!": "Ingen feil – sterkt!",
     "Keine Gesamtzeit, aber nur 5 Sekunden pro Karte. Der erste Fehler beendet die Runde.": "Ingen total tid, men bare 5 sekunder per kort. Den første feilen avslutter runden.",
     "Keine Vorschau": "Ingen forhåndsvisning",
-    "Kurze Töne bei Treffer und Fehler, Konfetti bei neuem Rekord": "Korte lyder ved treff og feil, konfetti ved ny rekord",
-    "Kurzes Brummen bei einem Fehler (nur auf Handys, die das können)": "En kort summing ved feil (bare på mobiler som støtter det)",
     "Lade Songs…": "Laster sanger …",
     "Lautstärke": "Volum",
     "Lila": "Lilla",
@@ -142,13 +139,10 @@
     "Tippe auf „Teilen“": "Trykk på «Del»",
     "Titel": "Tittel",
     "Treffer je Art": "Treff per type",
-    "Töne & Bewegung": "Lyder og bevegelse",
-    "Töne & Konfetti": "Lyder og konfetti",
     "Töne an": "Lyder på",
     "Töne aus": "Lyder av",
     "Version": "Versjon",
     "Verstanden": "Skjønner",
-    "Vibration": "Vibrasjon",
     "Vibration an": "Vibrasjon på",
     "Vibration aus": "Vibrasjon av",
     "Vor oder nach": "Før eller etter",
@@ -219,5 +213,7 @@
     "Abgeglichen · verwalten in der Jukebox": "Synkronisert · administreres i Jukebox",
     // Adventskalender
     "Aus dem Adventskalender": "Fra julekalenderen",
+    // Töne und Vibration (Jukebox)
+    "Töne und Vibration stellst du in der Jukebox ein.": "Lyder og vibrasjon stiller du inn i Jukeboxen.",
   }
 };

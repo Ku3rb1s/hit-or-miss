@@ -45,7 +45,6 @@
     "Design": "Design",
     "Die 30-s-Vorschauen und Cover kommen direkt von deezer.com – dafür ruft dein Browser Deezer auf.": "The 30-second previews and covers come straight from deezer.com – your browser contacts Deezer for that.",
     "Die App speichert getrennt vom Browser: Einstellungen und Anmeldungen gibst du dort einmal neu ein.": "The app stores its data separately from the browser: enter your settings and sign-ins there once more.",
-    "Die Lautstärke stellst du direkt im Spiel ein. Die Musik startet bei jeder Karte von selbst.": "You set the volume right in the game. The music starts by itself with every card.",
     "Die Neuerungen konnten nicht geladen werden.": "Couldn't load what's new.",
     "Die Songliste konnte nicht geladen werden.": "The song list couldn’t be loaded.",
     "Die nächste Challenge gibt es morgen.": "The next challenge arrives tomorrow.",
@@ -79,8 +78,6 @@
     "Keine Fehler – stark!": "No mistakes – great!",
     "Keine Gesamtzeit, aber nur 5 Sekunden pro Karte. Der erste Fehler beendet die Runde.": "No overall clock, but only 5 seconds per card. The first mistake ends the round.",
     "Keine Vorschau": "No preview",
-    "Kurze Töne bei Treffer und Fehler, Konfetti bei neuem Rekord": "Short sounds for hits and misses, confetti for a new record",
-    "Kurzes Brummen bei einem Fehler (nur auf Handys, die das können)": "A short buzz on a mistake (only on phones that support it)",
     "Lade Songs…": "Loading songs…",
     "Lautstärke": "Volume",
     "Lila": "Purple",
@@ -142,13 +139,10 @@
     "Tippe auf „Teilen“": "Tap “Share”",
     "Titel": "Title",
     "Treffer je Art": "Hits per type",
-    "Töne & Bewegung": "Sounds & motion",
-    "Töne & Konfetti": "Sounds & confetti",
     "Töne an": "Sounds on",
     "Töne aus": "Sounds off",
     "Version": "Version",
     "Verstanden": "Got it",
-    "Vibration": "Vibration",
     "Vibration an": "Vibration on",
     "Vibration aus": "Vibration off",
     "Vor oder nach": "Before or after",
@@ -219,5 +213,7 @@
     "Abgeglichen · verwalten in der Jukebox": "Synced · manage it in the Jukebox",
     // Adventskalender
     "Aus dem Adventskalender": "From the Advent calendar",
+    // Töne und Vibration (Jukebox)
+    "Töne und Vibration stellst du in der Jukebox ein.": "You set sounds and vibration in the Jukebox.",
   }
 };

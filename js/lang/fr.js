@@ -45,7 +45,6 @@
     "Design": "Apparence",
     "Die 30-s-Vorschauen und Cover kommen direkt von deezer.com – dafür ruft dein Browser Deezer auf.": "Les extraits de 30 s et les pochettes viennent directement de deezer.com – ton navigateur contacte Deezer pour cela.",
     "Die App speichert getrennt vom Browser: Einstellungen und Anmeldungen gibst du dort einmal neu ein.": "L’app enregistre ses données séparément du navigateur : saisis-y une nouvelle fois tes réglages et connexions.",
-    "Die Lautstärke stellst du direkt im Spiel ein. Die Musik startet bei jeder Karte von selbst.": "Le volume se règle directement dans le jeu. La musique démarre toute seule à chaque carte.",
     "Die Neuerungen konnten nicht geladen werden.": "Impossible de charger les nouveautés.",
     "Die Songliste konnte nicht geladen werden.": "Impossible de charger la liste des morceaux.",
     "Die nächste Challenge gibt es morgen.": "Le prochain défi arrive demain.",
@@ -79,8 +78,6 @@
     "Keine Fehler – stark!": "Aucune erreur – bravo !",
     "Keine Gesamtzeit, aber nur 5 Sekunden pro Karte. Der erste Fehler beendet die Runde.": "Pas de chrono global, mais seulement 5 secondes par carte. La première erreur termine la partie.",
     "Keine Vorschau": "Pas d’extrait",
-    "Kurze Töne bei Treffer und Fehler, Konfetti bei neuem Rekord": "Petits sons pour les bonnes et mauvaises réponses, confettis pour un nouveau record",
-    "Kurzes Brummen bei einem Fehler (nur auf Handys, die das können)": "Petite vibration en cas d’erreur (seulement sur les téléphones compatibles)",
     "Lade Songs…": "Chargement des titres…",
     "Lautstärke": "Volume",
     "Lila": "Violet",
@@ -142,13 +139,10 @@
     "Tippe auf „Teilen“": "Touche « Partager »",
     "Titel": "Titre",
     "Treffer je Art": "Réussite par type",
-    "Töne & Bewegung": "Sons & mouvement",
-    "Töne & Konfetti": "Sons et confettis",
     "Töne an": "Sons activés",
     "Töne aus": "Sons désactivés",
     "Version": "Version",
     "Verstanden": "Compris",
-    "Vibration": "Vibration",
     "Vibration an": "Vibration activée",
     "Vibration aus": "Vibration désactivée",
     "Vor oder nach": "Avant ou après",
@@ -219,5 +213,7 @@
     "Abgeglichen · verwalten in der Jukebox": "Synchronisé · à gérer dans la Jukebox",
     // Adventskalender
     "Aus dem Adventskalender": "Du calendrier de l’Avent",
+    // Töne und Vibration (Jukebox)
+    "Töne und Vibration stellst du in der Jukebox ein.": "Les sons et la vibration se règlent dans la Jukebox.",
   }
 };

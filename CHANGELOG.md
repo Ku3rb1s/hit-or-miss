@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.30 – 28.11.2026
+- Töne und Vibration stellst du jetzt einmal in der Jukebox ein – für alle Spiele
+
 ## 1.0.29 – 28.11.2026
 - Die Tägliche Challenge liegt jetzt fertig als Datei bereit – so sind die Karten auf der Website und in der kommenden iPhone-App überall genau gleich
 

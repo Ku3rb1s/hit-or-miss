@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.29', APP_DATE = '28.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.30', APP_DATE = '28.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd8';
 const $ = s => document.querySelector(s);
@@ -42,7 +42,10 @@ const sharedTheme = {
   get() { try { return JSON.parse(localStorage.getItem('mq.theme')) || 'graphit'; } catch { return 'graphit'; } },
   set(v) { try { localStorage.setItem('mq.theme', JSON.stringify(v)); } catch {} },
 };
-const opt = { mode: LS.get('mode', '60s'), diff: LS.get('diff', 'normal'), sfx: LS.get('sfx', true), vib: LS.get('vib', true), vol: LS.get('vol', 80), muted: false, theme: sharedTheme.get() };
+const opt = { mode: LS.get('mode', '60s'), diff: LS.get('diff', 'normal'), vol: LS.get('vol', 80), muted: false, theme: sharedTheme.get() };
+// Töne und Vibration gelten für alle Spiele und werden in der Jukebox eingestellt (Prefs in js/profile.js)
+Object.defineProperty(opt, 'sfx', { get: () => Prefs.sfx, enumerable: true });
+Object.defineProperty(opt, 'vib', { get: () => Prefs.vib, enumerable: true });
 if (!MODE_NAMES[opt.mode]) opt.mode = '60s';
 if (!DIFF[opt.diff]) opt.diff = 'normal';
 // Rekord je Modus und Stufe (Tägliche Challenge: immer 60 Sekunden · Normal)
@@ -650,8 +653,6 @@ function applyTheme() {
   $('#themeRow').innerHTML = THEMES.map(([id, name, a, b]) => `<button class="theme-pick ${th === id ? 'on' : ''}" data-theme-pick="${id}"><i style="background:linear-gradient(135deg,${a},${b})"></i>${tx(name)}</button>`).join('');
 }
 function renderSettings() {
-  $('#setSfx').checked = !!opt.sfx; $('#setVib').checked = !!opt.vib;
-  $('#subHelp').textContent = [opt.sfx ? 'Töne an' : 'Töne aus', opt.vib ? 'Vibration an' : 'Vibration aus'].map(s => tx(s)).join(' · ');
   $('#subDesign').textContent = tx((THEMES.find(x => x[0] === opt.theme) || THEMES[0])[1]);
   $('#langSel').innerHTML = langOptions();
   const st = Sync.view('hom.stats', LS.get('stats', null));
@@ -741,8 +742,6 @@ $('#navBack').onclick = () => goPage('main', true);
 $('#profEmoji').onclick = () => Profile.pick(e => { $('#profEmoji').textContent = e; });
 $('#profName').oninput = () => Profile.set({ name: $('#profName').value });
 $('#profName').onkeydown = e => { if (e.key === 'Enter') $('#profName').blur(); };
-$('#setSfx').onchange = e => { opt.sfx = e.target.checked; LS.set('sfx', opt.sfx); renderSettings(); sound('ok'); };
-$('#setVib').onchange = e => { opt.vib = e.target.checked; LS.set('vib', opt.vib); renderSettings(); if (opt.vib && navigator.vibrate) navigator.vibrate(60); };
 $('#vol').oninput = e => { opt.vol = +e.target.value; opt.muted = false; LS.set('vol', opt.vol); applyVol(); };
 $('#volMute').onclick = () => { opt.muted = !opt.muted; applyVol(); };
 $('#themeRow').onclick = e => { const b = e.target.closest('[data-theme-pick]'); if (!b) return; opt.theme = b.dataset.themePick; sharedTheme.set(opt.theme); renderSettings(); };

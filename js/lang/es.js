@@ -45,7 +45,6 @@
     "Design": "Diseño",
     "Die 30-s-Vorschauen und Cover kommen direkt von deezer.com – dafür ruft dein Browser Deezer auf.": "Los avances de 30 s y las portadas vienen directamente de deezer.com – para ello tu navegador contacta con Deezer.",
     "Die App speichert getrennt vom Browser: Einstellungen und Anmeldungen gibst du dort einmal neu ein.": "La app guarda sus datos aparte del navegador: allí tendrás que volver a introducir tus ajustes e inicios de sesión una vez.",
-    "Die Lautstärke stellst du direkt im Spiel ein. Die Musik startet bei jeder Karte von selbst.": "El volumen se ajusta directamente en el juego. La música empieza sola con cada carta.",
     "Die Neuerungen konnten nicht geladen werden.": "No se pudieron cargar las novedades.",
     "Die Songliste konnte nicht geladen werden.": "No se pudo cargar la lista de canciones.",
     "Die nächste Challenge gibt es morgen.": "El próximo reto llega mañana.",
@@ -79,8 +78,6 @@
     "Keine Fehler – stark!": "Sin fallos, ¡genial!",
     "Keine Gesamtzeit, aber nur 5 Sekunden pro Karte. Der erste Fehler beendet die Runde.": "Sin tiempo total, pero solo 5 segundos por carta. El primer fallo termina la ronda.",
     "Keine Vorschau": "Sin avance",
-    "Kurze Töne bei Treffer und Fehler, Konfetti bei neuem Rekord": "Sonidos cortos al acertar y fallar, confeti con un nuevo récord",
-    "Kurzes Brummen bei einem Fehler (nur auf Handys, die das können)": "Una vibración corta al fallar (solo en móviles compatibles)",
     "Lade Songs…": "Cargando canciones…",
     "Lautstärke": "Volumen",
     "Lila": "Morado",
@@ -142,13 +139,10 @@
     "Tippe auf „Teilen“": "Toca «Compartir»",
     "Titel": "Título",
     "Treffer je Art": "Aciertos por tipo",
-    "Töne & Bewegung": "Sonidos y movimiento",
-    "Töne & Konfetti": "Sonidos y confeti",
     "Töne an": "Sonidos activados",
     "Töne aus": "Sonidos desactivados",
     "Version": "Versión",
     "Verstanden": "Entendido",
-    "Vibration": "Vibración",
     "Vibration an": "Vibración activada",
     "Vibration aus": "Vibración desactivada",
     "Vor oder nach": "Antes o después",
@@ -219,5 +213,7 @@
     "Abgeglichen · verwalten in der Jukebox": "Sincronizado · gestiónalo en la Jukebox",
     // Adventskalender
     "Aus dem Adventskalender": "Del calendario de Adviento",
+    // Töne und Vibration (Jukebox)
+    "Töne und Vibration stellst du in der Jukebox ein.": "Los sonidos y la vibración se ajustan en la Jukebox.",
   }
 };
