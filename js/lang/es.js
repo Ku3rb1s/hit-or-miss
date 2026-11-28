@@ -155,7 +155,8 @@
     "Zur Jukebox": "A la Jukebox",
     "Zur Startseite": "Ir al inicio",
     "aktuell": "actual",
-    "beste Serie": "mejor racha",
+    "beste Serie": "mejor racha",
+
     "erschien in den {d}ern": "salió en los años {d}",
     "erschien nach {y}": "salió después de {y}",
     "erschien vor {y}": "salió antes de {y}",
@@ -215,5 +216,9 @@
     "Aus dem Adventskalender": "Del calendario de Adviento",
     // Töne und Vibration (Jukebox)
     "Töne und Vibration stellst du in der Jukebox ein.": "Los sonidos y la vibración se ajustan en la Jukebox.",
+    // Challenge-Archiv (iPhone-App)
+    "Challenge-Archiv": "Archivo de retos",
+    "Die letzten 30 Tage. Verpasste kannst du nachspielen – sie zählen nicht zur Serie.": "Los últimos 30 días. Puedes jugar los que te perdiste; no cuentan para tu racha.",
+    "noch nicht gespielt": "aún sin jugar",
   }
 };

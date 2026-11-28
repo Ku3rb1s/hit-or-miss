@@ -155,7 +155,8 @@
     "Zur Jukebox": "Til Jukebox",
     "Zur Startseite": "Til forsiden",
     "aktuell": "gjeldende",
-    "beste Serie": "beste rekke",
+    "beste Serie": "beste rekke",
+
     "erschien in den {d}ern": "kom ut på {d}-tallet",
     "erschien nach {y}": "kom ut etter {y}",
     "erschien vor {y}": "kom ut før {y}",
@@ -215,5 +216,9 @@
     "Aus dem Adventskalender": "Fra julekalenderen",
     // Töne und Vibration (Jukebox)
     "Töne und Vibration stellst du in der Jukebox ein.": "Lyder og vibrasjon stiller du inn i Jukeboxen.",
+    // Challenge-Archiv (iPhone-App)
+    "Challenge-Archiv": "Utfordringsarkiv",
+    "Die letzten 30 Tage. Verpasste kannst du nachspielen – sie zählen nicht zur Serie.": "De siste 30 dagene. Du kan spille dem du gikk glipp av – de teller ikke med i rekken.",
+    "noch nicht gespielt": "ikke spilt ennå",
   }
 };

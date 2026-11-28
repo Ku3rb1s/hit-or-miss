@@ -155,7 +155,8 @@
     "Zur Jukebox": "Vers la Jukebox",
     "Zur Startseite": "Retour à l'accueil",
     "aktuell": "actuelle",
-    "beste Serie": "meilleure série",
+    "beste Serie": "meilleure série",
+
     "erschien in den {d}ern": "est sorti dans les années {d}",
     "erschien nach {y}": "est sorti après {y}",
     "erschien vor {y}": "est sorti avant {y}",
@@ -215,5 +216,9 @@
     "Aus dem Adventskalender": "Du calendrier de l’Avent",
     // Töne und Vibration (Jukebox)
     "Töne und Vibration stellst du in der Jukebox ein.": "Les sons et la vibration se règlent dans la Jukebox.",
+    // Challenge-Archiv (iPhone-App)
+    "Challenge-Archiv": "Archives des défis",
+    "Die letzten 30 Tage. Verpasste kannst du nachspielen – sie zählen nicht zur Serie.": "Les 30 derniers jours. Tu peux rejouer ceux que tu as manqués – ils ne comptent pas pour ta série.",
+    "noch nicht gespielt": "pas encore joué",
   }
 };

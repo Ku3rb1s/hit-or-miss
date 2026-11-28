@@ -155,7 +155,8 @@
     "Zur Jukebox": "To the Jukebox",
     "Zur Startseite": "Back to home",
     "aktuell": "current",
-    "beste Serie": "best streak",
+    "beste Serie": "best streak",
+
     "erschien in den {d}ern": "came out in the {d}s",
     "erschien nach {y}": "came out after {y}",
     "erschien vor {y}": "came out before {y}",
@@ -215,5 +216,9 @@
     "Aus dem Adventskalender": "From the Advent calendar",
     // Töne und Vibration (Jukebox)
     "Töne und Vibration stellst du in der Jukebox ein.": "You set sounds and vibration in the Jukebox.",
+    // Challenge-Archiv (iPhone-App)
+    "Challenge-Archiv": "Challenge archive",
+    "Die letzten 30 Tage. Verpasste kannst du nachspielen – sie zählen nicht zur Serie.": "The last 30 days. You can replay the ones you missed – they don’t count toward your streak.",
+    "noch nicht gespielt": "not played yet",
   }
 };
