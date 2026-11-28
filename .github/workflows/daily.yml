@@ -1,0 +1,37 @@
+name: Tägliche Challenge vorbereiten
+
+# Jeden Tag: data/daily/JJJJ-MM-TT.json für die nächsten 14 Tage anlegen (scripts/build-daily.js).
+# Keine Deezer-Anfragen – das Skript liest nur data/tracks.json. Vorhandene Dateien bleiben unverändert:
+# eine veröffentlichte Challenge ist fest, auch wenn sich die Songdaten später ändern (neue Daten gelten erst für neue Tage).
+# Per Hand: Actions → „Tägliche Challenge vorbereiten“ → Run workflow.
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 0:30 UTC = 1:30 (Winter) bzw. 2:30 (Sommer) deutscher Zeit
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Dateien bauen, prüfen und hochladen
+        run: |
+          node scripts/build-daily.js
+          node scripts/build-daily.js --check
+          git add data/daily
+          if git diff --cached --quiet; then echo "Nichts Neues"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Tägliche Challenge: neue Tage vorbereitet"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 10; done
+          exit 1

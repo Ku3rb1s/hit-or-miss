@@ -12,6 +12,10 @@ Teil der [Jukebox](https://ku3rb1s.github.io/jukebox/) – Regeln für alle Spie
   Prüfbericht nach `scripts/.cache/report.txt`. Danach `DATA_V` in `js/game.js` erhöhen.
   Für alle Spiele zusammen: `node scripts/update-songs.js` im Ordner `Spiele-Hub` – **nur lokal** (auf den GitHub-Rechnern in den
   USA liefert Deezer andere Track-IDs und sperrt andere Songs; die GitHub-Automatik ist darum abgeschaltet).
+- **Tages-Challenge als Datei:** `node scripts/build-daily.js` legt `data/daily/JJJJ-MM-TT.json` für heute − 30 … + 14 Tage an
+  (200 fertige Karten, sprachneutral; vorhandene Dateien bleiben fest, `--force` überschreibt), `--check` vergleicht mit der
+  Logik im Spiel. Läuft täglich als GitHub-Workflow (`.github/workflows/daily.yml`, ohne Deezer). Das Spiel lädt die Datei zuerst,
+  sonst rechnet es wie bisher selbst.
 - **Behauptungen:** `js/claims.js` – alle Regeln gegen unfaire Fakten an einer Stelle, mit Gegenprüfung jeder Karte.
 - **Handlisten:** `scripts/related-artists.json` (Solo-Star und Band, andere Namen – nie gegeneinander als falsche Antwort),
   `scripts/versions-extra.json` (bekannte Remixe/Cover, die Deezer nicht findet). Andere Fassungen sucht `scripts/build-versions.js`.

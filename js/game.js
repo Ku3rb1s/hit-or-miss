@@ -2,7 +2,7 @@
    Ein Song läuft, dazu eine Behauptung (js/claims.js). Wisch nach rechts = stimmt (Hit), nach links = stimmt nicht (Miss).
    Modi: 60 Sekunden (Fehler kosten 3 s), Sudden Death (5 s pro Karte, ein Fehler beendet die Runde), Entspannt (ohne Zeit, 20 Karten),
    Tägliche Challenge (60 Sekunden, gleiche Karten für alle am selben Tag – Tag nach deutscher Zeit). Konzept: KONZEPT.md */
-const APP_VERSION = '1.0.28', APP_DATE = '28.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
+const APP_VERSION = '1.0.29', APP_DATE = '28.11.2026'; // bei jedem Update erhöhen + CHANGELOG.md ergänzen
 // Eigene Version für data/tracks.json – nur erhöhen, wenn sich die Songdaten geändert haben (scripts/build-data.js)
 const DATA_V = 'd8';
 const $ = s => document.querySelector(s);
@@ -83,6 +83,20 @@ async function loadData() {
   const c0 = new Map(raw.tracks.filter(t => t.c0).map(t => [t.i, t.c0]));
   for (const s of HM.D.tracks) if (c0.has(s.i)) s.c0 = c0.get(s.i);
   return DATA;
+}
+// Tägliche Challenge vorab als Datei (scripts/build-daily.js) – Website und iPhone-App spielen exakt dieselben Karten.
+// Ohne ?v= → der Service Worker holt sie immer zuerst frisch (offline aus dem Speicher). Fehlt sie: wie bisher selbst berechnen.
+async function loadDaily(day) {
+  try {
+    const r = await fetch(`data/daily/${day}.json`);
+    if (!r.ok) return null;
+    const j = await r.json();
+    if (j.v !== 1 || j.day !== day || !Array.isArray(j.items)) return null;
+    const cards = j.items.map(HM.fromDaily);
+    if (!cards.length || cards.some(c => !c)) return null;
+    for (const c of cards) c.at = j.streamsAt;
+    return cards;
+  } catch { return null; }
 }
 
 /* ---------- Musik: zwei Player im Wechsel ----------
@@ -170,7 +184,7 @@ function factHtml(c) {
     case 'dec': case 'when': return tx('erschien {y}', { y: `<b>${s.y}</b>` });
     case 'artist': return tx('ist von {a}', { a: `<b>${esc(s.A)}</b>` });
     case 'title': return tx('heißt »{t}«', { t: `<b>${esc(s.T)}</b>` });
-    case 'streams': return tx('{n} Streams (Stand {d})', { n: `<b>${tx('{n} Mrd.', { n: bn(s.n) })}</b>`, d: fmtDate(HM.D.streamsAt) });
+    case 'streams': return tx('{n} Streams (Stand {d})', { n: `<b>${tx('{n} Mrd.', { n: bn(s.n) })}</b>`, d: fmtDate(c.at || HM.D.streamsAt) });
     case 'older': return tx('erschien {y}', { y: `<b>${s.y}</b>` }) + ' · ' + tx('»{t}«: {y}', { t: esc(c.o.T), y: `<b>${c.o.y}</b>` });
   }
   return '';
@@ -180,7 +194,7 @@ function factHtml(c) {
 let G = null, raf = 0;
 const hOf = i => { const k = G.mode === 'sd' ? Math.min(1, i / 35) : G.mode === 'zen' ? Math.min(1, i / 19) : Math.min(1, Math.pow(i / 28, 1.1)), D = DIFF[G.diff]; return D.h0 + (D.h1 - D.h0) * k; };
 function nextCard() {
-  const c = HM.makeCard(G.st, hOf(G.made++), G.R);
+  const c = G.cards ? G.cards[G.made++] || null : HM.makeCard(G.st, hOf(G.made++), G.R);
   if (c) previewOf(c.s).catch(() => {});
   return c;
 }
@@ -189,13 +203,14 @@ async function startGame(daily = false) {
   if (G && !G.ended) return;
   unlockAudio();   // muss direkt im Tipp passieren (iPhone)
   $('#loading').classList.remove('hidden');
-  try { await loadData(); } catch { $('#loading').classList.add('hidden'); return toast(tx('Die Songliste konnte nicht geladen werden.')); }
-  $('#loading').classList.add('hidden');
   const day = today();
+  const [dataOk, cards] = await Promise.all([loadData().then(() => true, () => false), daily ? loadDaily(day) : null]);
+  $('#loading').classList.add('hidden');
+  if (!dataOk && !cards) return toast(tx('Die Songliste konnte nicht geladen werden.'));
   const late = daily && !!LS.get('daily.' + day);
   const mode = daily ? '60s' : opt.mode, diff = daily ? 'normal' : opt.diff;
   G = {
-    mode, diff, daily, day, late, R: daily ? HM.seeded('hit-or-miss-' + day) : Math.random,
+    mode, diff, daily, day, late, cards, R: daily ? HM.seeded('hit-or-miss-' + day) : Math.random,
     st: { used: new Set(), recent: [], truths: [] }, made: 0,
     score: 0, streak: 0, bestStreak: 0, right: 0, wrong: 0, log: [], queue: [], cur: null,
     best: LS.get(bestKey(mode, diff), 0), locked: true, over: false, ended: false,
@@ -699,8 +714,9 @@ $('#btnMiss').onclick = () => answer(false);
 $('#shareBtn').onclick = shareResult;
 $('#endFilter').onclick = e => { const b = e.target.closest('button'); if (b) { endFilter = b.dataset.v; renderEndList(); } };
 $('#endList').onclick = e => {
-  const r = e.target.closest('[data-play]'); if (!r || !HM.D) return;
-  const s = HM.D.byId.get(+r.dataset.play);
+  const r = e.target.closest('[data-play]'); if (!r || !G) return;
+  const s = G.log.find(l => l.c.s.i === +r.dataset.play)?.c.s;   // aus der Runde (Tages-Datei: Song muss nicht in tracks.json stehen)
+  if (!s) return;
   if (active._id === s.i && !active.paused) stopAudio(); else playSong(s);
 };
 const goHome = () => { stopAudio(); cancelAnimationFrame(raf); if (G && !G.ended) G.ended = G.over = true; G = null; renderHome(); show('home'); };

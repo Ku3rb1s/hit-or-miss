@@ -225,6 +225,42 @@ const HM = (() => {
     return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
   }
 
-  return { prepare, makeCard, verify, seeded, key, words, cleanTitle, titleKey, mainArtist, participants, related, isReissue, GEN, get D() { return D; } };
+  /* ---------- Tages-Challenge als Datei (data/daily/JJJJ-MM-TT.json, gebaut von scripts/build-daily.js) ----------
+     Eine Karte sprachneutral und fertig aufgelöst – Website und iPhone-App lesen dieselbe Datei:
+       { type, true, hide, song, …Angaben je Art }   song/other = { id (Deezer), title (voll), name (ohne Zusätze), artist, year, year2?, streams?, cover?, cover0? }
+       dec: decade · when: year, dir · artist: artist · title: title · streams: streams (Millionen) · older: cmp, other */
+  const songOut = s => {
+    const o = { id: s.i, title: s.t, name: s.T, artist: s.A, year: s.y };
+    if (s.y2) o.year2 = s.y2; if (s.n) o.streams = s.n; if (s.c) o.cover = s.c; if (s.c0) o.cover0 = s.c0;
+    return o;
+  };
+  const songIn = o => ({ i: o.id, t: o.title, T: o.name, A: o.artist, y: o.year, y2: o.year2 || 0, n: o.streams || 0, c: o.cover, c0: o.cover0 });
+  function toDaily(c) {
+    const o = { type: c.k, true: c.ok, hide: c.hide ?? null, song: songOut(c.s) };
+    switch (c.k) {
+      case 'dec': o.decade = c.d; break;
+      case 'when': o.year = c.y; o.dir = c.dir; break;
+      case 'artist': o.artist = c.A; break;
+      case 'title': o.title = c.T; break;
+      case 'streams': o.streams = c.n; break;
+      case 'older': o.cmp = c.cmp; o.other = songOut(c.o); break;
+    }
+    return o;
+  }
+  function fromDaily(o) {
+    const c = { k: o.type, ok: o.true, hide: o.hide ?? null, s: songIn(o.song) };
+    switch (o.type) {
+      case 'dec': c.d = o.decade; break;
+      case 'when': c.y = o.year; c.dir = o.dir; break;
+      case 'artist': c.A = o.artist; break;
+      case 'title': c.T = o.title; break;
+      case 'streams': c.n = o.streams; break;
+      case 'older': c.cmp = o.cmp; c.o = songIn(o.other); break;
+      default: return null;
+    }
+    return c;
+  }
+
+  return { prepare, makeCard, verify, seeded, toDaily, fromDaily, key, words, cleanTitle, titleKey, mainArtist, participants, related, isReissue, GEN, get D() { return D; } };
 })();
 if (typeof module !== 'undefined') module.exports = HM;

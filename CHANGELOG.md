@@ -1,5 +1,8 @@
 # Neuerungen
 
+## 1.0.29 – 28.11.2026
+- Die Tägliche Challenge liegt jetzt fertig als Datei bereit – so sind die Karten auf der Website und in der kommenden iPhone-App überall genau gleich
+
 ## 1.0.28 – 28.11.2026
 - Vorbereitung für die Jukebox-App fürs iPhone: Dort fällt „Als App installieren“ weg
 
